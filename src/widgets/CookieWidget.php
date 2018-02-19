@@ -124,6 +124,6 @@ class CookieWidget extends Widget
 
         $view = Yii::$app->getView();
         CookieConsentAsset::register($view);
-        $view->registerJs('window.cookieconsent.initialise(' . Json::encode($this->pluginOptions) . ').install();', View::POS_READY);
+        $view->registerJs('window.cookieconsent.initialise(' . Json::encode($this->pluginOptions) . ');', View::POS_READY);
     }
 }
