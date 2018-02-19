@@ -127,4 +127,3 @@ class CookieWidget extends Widget
         $view->registerJs('window.cookieconsent.initialise(' . Json::encode($this->pluginOptions) . ').install();', View::POS_READY);
     }
 }
-
