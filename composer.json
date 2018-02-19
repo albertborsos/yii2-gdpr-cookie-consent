@@ -1,0 +1,32 @@
+{
+    "name": "albertborsos/yii2-gdpr-cookie-consent",
+    "description": "GDPR compatible Cookie Consent widget allows the user to choose which kind of cookies they want to accept.",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","cookie","cookie policy"," gdpr"," cookie consent"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Albert Borsos",
+            "email": "hello@borsosalbert.hu"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "yiisoft/yii2-codeception": "~2.0",
+        "satooshi/php-coveralls": "~1.0",
+        "codeception/codeception": "~2.3",
+        "codeception/specify": " *",
+        "codeception/verify": " *",
+        "codeception/mockery-module": "^0.2.2",
+        "mito/yii2-coding-standards": "~2.0.0@beta"
+    },
+    "autoload": {
+        "psr-4": {
+            "albertborsos\\cookieconsent\\": "src/",
+            "albertborsos\\cookieconsent\\tests\\": "tests/"
+        }
+    }
+}
