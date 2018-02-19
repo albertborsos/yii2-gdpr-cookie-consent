@@ -42,7 +42,10 @@ class CookieWidget extends Widget
     public $position = self::POSITION_BOTTOM;
 
     /**
-     * @var array
+     * By default the DEFAULT_PALETTE config will be loaded, but you can override it.
+     * To totally skip palette configurations, set this property to `false`.
+     *
+     * @var array|false
      */
     public $paletteConfig = [];
 
@@ -111,12 +114,14 @@ class CookieWidget extends Widget
             }
         }
 
-        if (empty(ArrayHelper::getValue($this->pluginOptions, 'palette'))) {
-            $this->pluginOptions['palette'] = self::DEFAULT_PALETTE;
-        }
+        if ($this->paletteConfig !== false) {
+            if (empty(ArrayHelper::getValue($this->pluginOptions, 'palette'))) {
+                $this->pluginOptions['palette'] = self::DEFAULT_PALETTE;
+            }
 
-        if (!empty($this->paletteConfig)) {
-            $this->pluginOptions['palette'] = $this->paletteConfig;
+            if (!empty($this->paletteConfig)) {
+                $this->pluginOptions['palette'] = $this->paletteConfig;
+            }
         }
 
         if (!empty($this->layout)) {
