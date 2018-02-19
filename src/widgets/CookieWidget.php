@@ -44,7 +44,7 @@ class CookieWidget extends Widget
     /**
      * @var string
      */
-    public $message = 'This website uses cookies to ensure you get the best experience on our website.';
+    public $message;
 
     /**
      * @var string
