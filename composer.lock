@@ -4,8 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bca17f207411cf5cf9b43ba7d350601e",
+    "content-hash": "b1b1b02d963978e9f0462b0abe1bc4d6",
     "packages": [
+        {
+            "name": "bower-asset/cookieconsent",
+            "version": "3.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/insites/cookieconsent.git",
+                "reference": "7a493e8996faa691f47c777225ec66095fdd14d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/insites/cookieconsent/zipball/7a493e8996faa691f47c777225ec66095fdd14d6",
+                "reference": "7a493e8996faa691f47c777225ec66095fdd14d6",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "build/cookieconsent.min.js",
+                    "build/cookieconsent.min.css"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Insites' cookie consent plugin",
+            "keywords": [
+                "cookie",
+                "cookieconsent",
+                "law"
+            ],
+            "time": "2018-02-09T10:44:34+00:00"
+        },
         {
             "name": "bower-asset/inputmask",
             "version": "3.3.11",
@@ -3523,7 +3562,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.0"
+        "php": ">=5.6.0"
     },
     "platform-dev": []
 }

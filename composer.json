@@ -11,8 +11,9 @@
         }
     ],
     "require": {
+        "php": ">=5.6.0",
         "yiisoft/yii2": "*",
-        "php": ">=5.6.0"
+        "bower-asset/cookieconsent": "^3.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "~2.0",
