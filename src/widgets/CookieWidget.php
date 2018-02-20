@@ -3,8 +3,11 @@
 namespace albertborsos\cookieconsent\widgets;
 
 use albertborsos\cookieconsent\assets\CookieConsentAsset;
+use albertborsos\cookieconsent\Component;
 use Yii;
+use yii\base\InvalidConfigException;
 use yii\base\Widget;
+use yii\di\Instance;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -28,6 +31,8 @@ class CookieWidget extends Widget
     const COMPLIANCE_TYPE_OPT_OUT = 'opt-out';
 
     const REGEX_IS_ENGLISH_LANGUAGE = '/^en(-[A-Z]{2})?$/';
+
+    const DEFAULT_DOMAIN = '/';
 
     const DEFAULT_PALETTE = [
         'popup' => [
@@ -98,12 +103,24 @@ class CookieWidget extends Widget
      */
     public $pluginOptions = [];
 
+    /**
+     * This option must be set, otherwise your cookies may not work.
+     *
+     * @var string
+     */
+    public $domain = self::DEFAULT_DOMAIN;
+
+    /**
+     * @throws InvalidConfigException
+     */
     public function init()
     {
         parent::init();
         $this->initializeTranslations();
         $this->preparePluginOptions();
         $this->registerAssets();
+        $this->setComponentStatus();
+        $this->setComponentComplianceType($this->complianceType);
     }
 
     private function initializeTranslations()
@@ -126,6 +143,10 @@ class CookieWidget extends Widget
 
     private function preparePluginOptions()
     {
+        if (!isset($this->pluginOptions['domain']) && !empty($this->domain)) {
+            $this->pluginOptions['domain'] = trim($this->domain) ?: self::DEFAULT_DOMAIN;
+        }
+
         if (!empty($this->position)) {
             $this->pluginOptions['position'] = $this->position;
 
@@ -178,14 +199,35 @@ class CookieWidget extends Widget
         }
     }
 
+    /**
+     * @throws InvalidConfigException
+     */
     private function registerAssets()
     {
         if (!Yii::$app instanceof \yii\web\Application) {
             return;
         }
 
+        if (empty(ArrayHelper::getValue($this->pluginOptions, 'domain'))) {
+            throw new InvalidConfigException('Missing value in domain property.');
+        }
+
         $view = Yii::$app->getView();
         CookieConsentAsset::register($view);
         $view->registerJs('window.cookieconsent.initialise(' . Json::encode($this->pluginOptions) . ');', View::POS_READY);
+    }
+
+    private function setComponentStatus()
+    {
+        /** @var Component $component */
+        $component = Instance::ensure('cookieConsent', Component::class);
+        $component->setStatus(ArrayHelper::getValue($_COOKIE, 'cookieconsent_status'));
+    }
+
+    private function setComponentComplianceType($complianceType)
+    {
+        /** @var Component $component */
+        $component = Instance::ensure('cookieConsent', Component::class);
+        $component->setType($complianceType);
     }
 }
