@@ -23,9 +23,11 @@ class CookieWidget extends Widget
     const LAYOUT_CLASSIC = 'classic';
     const LAYOUT_EDGELESS = 'edgeless';
 
-    const COMPLIANCE_TYPE_JUST_TELL = null;
+    const COMPLIANCE_TYPE_INFO = 'info';
     const COMPLIANCE_TYPE_OPT_IN = 'opt-in';
     const COMPLIANCE_TYPE_OPT_OUT = 'opt-out';
+
+    const REGEX_IS_ENGLISH_LANGUAGE = '/^en(-[A-Z]{2})?$/';
 
     const DEFAULT_PALETTE = [
         'popup' => [
@@ -57,7 +59,7 @@ class CookieWidget extends Widget
     /**
      * @var null|string
      */
-    public $complianceType = self::COMPLIANCE_TYPE_JUST_TELL;
+    public $complianceType = self::COMPLIANCE_TYPE_INFO;
 
     /**
      * @var string
@@ -99,8 +101,27 @@ class CookieWidget extends Widget
     public function init()
     {
         parent::init();
+        $this->initializeTranslations();
         $this->preparePluginOptions();
         $this->registerAssets();
+    }
+
+    private function initializeTranslations()
+    {
+        if (preg_match(self::REGEX_IS_ENGLISH_LANGUAGE, Yii::$app->language)) {
+            // use the default cookieconsent.js messages for english languages
+            return;
+        }
+
+        $languageMessages['content'] = [
+            'message' => Yii::t('cookieconsent/widget', 'message'),
+            'allow'   => Yii::t('cookieconsent/widget', 'allow'),
+            'deny'    => Yii::t('cookieconsent/widget', 'deny'),
+            'dismiss' => Yii::t('cookieconsent/widget', 'dismiss'),
+            'link'    => Yii::t('cookieconsent/widget', 'link'),
+        ];
+
+        $this->pluginOptions = ArrayHelper::merge($languageMessages, $this->pluginOptions);
     }
 
     private function preparePluginOptions()
@@ -142,14 +163,10 @@ class CookieWidget extends Widget
 
         if ($this->complianceType === self::COMPLIANCE_TYPE_OPT_OUT && !empty($this->denyButtonText)) {
             $this->pluginOptions['content']['deny'] = $this->denyButtonText;
-        } else {
-            unset($this->pluginOptions['content']['deny']);
         }
 
         if ($this->complianceType === self::COMPLIANCE_TYPE_OPT_IN && !empty($this->allowButtonText)) {
             $this->pluginOptions['content']['allow'] = $this->allowButtonText;
-        } else {
-            unset($this->pluginOptions['content']['allow']);
         }
 
         if (!empty($this->policyLinkText)) {
