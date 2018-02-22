@@ -4,6 +4,7 @@ namespace albertborsos\cookieconsent;
 
 use albertborsos\cookieconsent\widgets\CookieWidget;
 use yii\base\InvalidArgumentException;
+use yii\helpers\ArrayHelper;
 
 class Component extends \yii\base\Component
 {
@@ -28,12 +29,21 @@ class Component extends \yii\base\Component
         self::COMPLIANCE_TYPE_OPT_OUT,
     ];
 
-    const CATEGORY_SESSION = 'session';
-    const CATEGORY_ADS = 'ads';
+    const CATEGORY_SESSION      = 'session';
+    const CATEGORY_ADS          = 'ads';
     const CATEGORY_USAGE_HELPER = 'usage-helper';
-    const CATEGORY_PERFORMANCE = 'performance';
+    const CATEGORY_PERFORMANCE  = 'performance';
+    const CATEGORY_BEHAVIOR     = 'behavior';
 
-    public $categories = [];
+    const CATEGORIES = [
+        self::CATEGORY_SESSION,
+        self::CATEGORY_ADS,
+        self::CATEGORY_USAGE_HELPER,
+        self::CATEGORY_PERFORMANCE,
+        self::CATEGORY_BEHAVIOR,
+    ];
+
+    public $extraCategories = [];
 
     /**
      * @var string compliance type
@@ -52,6 +62,11 @@ class Component extends \yii\base\Component
     public function registerWidget($config = [])
     {
         CookieWidget::widget($config);
+    }
+
+    public function getCategories()
+    {
+        return ArrayHelper::merge(self::CATEGORIES, $this->extraCategories);
     }
 
     /**

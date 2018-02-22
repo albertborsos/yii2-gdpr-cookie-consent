@@ -6,5 +6,5 @@ return [
     'allow' => 'Cookie-k engedélyezése',
     'deny' => 'Elutasítom',
     'dismiss' => 'Elfogadom!',
-    'link' => 'Tudjon meg többet',
+    'link' => 'Tudjon meg többet...',
 ];
