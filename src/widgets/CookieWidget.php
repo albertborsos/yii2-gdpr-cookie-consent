@@ -62,11 +62,6 @@ class CookieWidget extends Widget
     public $layout = self::LAYOUT_BLOCK;
 
     /**
-     * @var null|string
-     */
-    public $complianceType = self::COMPLIANCE_TYPE_INFO;
-
-    /**
      * @var string
      */
     public $message;
@@ -111,16 +106,25 @@ class CookieWidget extends Widget
     public $domain = self::DEFAULT_DOMAIN;
 
     /**
+     * @var Component
+     */
+    private $_component;
+
+    /**
      * @throws InvalidConfigException
      */
     public function init()
     {
         parent::init();
+        $this->loadComponent();
         $this->initializeTranslations();
         $this->preparePluginOptions();
         $this->registerAssets();
-        $this->setComponentStatus();
-        $this->setComponentComplianceType($this->complianceType);
+    }
+
+    public function getComponent()
+    {
+        return $this->_component;
     }
 
     private function initializeTranslations()
@@ -170,9 +174,8 @@ class CookieWidget extends Widget
             $this->pluginOptions['layout'] = $this->layout;
         }
 
-        if (!empty($this->complianceType)) {
-            $this->pluginOptions['type'] = $this->complianceType;
-        }
+        /** compliance type must be configured in the config of \albertborsos\cookieconsent\Component */
+        $this->pluginOptions['type'] = $this->getComponent()->complianceType;
 
         if (!empty($this->message)) {
             $this->pluginOptions['content']['message'] = $this->message;
@@ -182,11 +185,11 @@ class CookieWidget extends Widget
             $this->pluginOptions['content']['dismiss'] = $this->dismissButtonText;
         }
 
-        if ($this->complianceType === self::COMPLIANCE_TYPE_OPT_OUT && !empty($this->denyButtonText)) {
+        if ($this->getComponent()->complianceType === self::COMPLIANCE_TYPE_OPT_OUT && !empty($this->denyButtonText)) {
             $this->pluginOptions['content']['deny'] = $this->denyButtonText;
         }
 
-        if ($this->complianceType === self::COMPLIANCE_TYPE_OPT_IN && !empty($this->allowButtonText)) {
+        if ($this->getComponent()->complianceType === self::COMPLIANCE_TYPE_OPT_IN && !empty($this->allowButtonText)) {
             $this->pluginOptions['content']['allow'] = $this->allowButtonText;
         }
 
@@ -217,17 +220,8 @@ class CookieWidget extends Widget
         $view->registerJs('window.cookieconsent.initialise(' . Json::encode($this->pluginOptions) . ');', View::POS_READY);
     }
 
-    private function setComponentStatus()
+    private function loadComponent()
     {
-        /** @var Component $component */
-        $component = Instance::ensure('cookieConsent', Component::class);
-        $component->setStatus(ArrayHelper::getValue($_COOKIE, 'cookieconsent_status'));
-    }
-
-    private function setComponentComplianceType($complianceType)
-    {
-        /** @var Component $component */
-        $component = Instance::ensure('cookieConsent', Component::class);
-        $component->setType($complianceType);
+        $this->_component = Instance::ensure('cookieConsent', Component::class);
     }
 }

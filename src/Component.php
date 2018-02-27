@@ -43,17 +43,32 @@ class Component extends \yii\base\Component
         self::CATEGORY_BEHAVIOR,
     ];
 
+    const COOKIE_OPTION_PREFIX = 'cookieconsent_option_';
+
+    /**
+     * @var array custom cookie categories
+     */
     public $extraCategories = [];
 
     /**
      * @var string compliance type
      */
-    protected $_type;
+    public $complianceType;
 
     /**
-     * @var string widget status
+     * @var boolean calculated by the compliance type
      */
-    protected $_status;
+    private $_defaultCookieValue;
+
+    public function init()
+    {
+        if (!in_array($this->complianceType, self::COMPLIANCE_TYPES)) {
+            throw new InvalidArgumentException('Invalid value in "type" property!');
+        }
+
+        $this->setDefaultCookieValue();
+        parent::init();
+    }
 
     /**
      * @param array $config
@@ -69,29 +84,9 @@ class Component extends \yii\base\Component
         return ArrayHelper::merge(self::CATEGORIES, $this->extraCategories);
     }
 
-    /**
-     * @param $status string
-     */
-    public function setStatus($status)
+    public function getStatus()
     {
-        if (empty($status)) {
-            return;
-        }
-
-        if (!in_array($status, self::STATUSES)) {
-            throw new InvalidArgumentException('Invalid value passed to setStatus method!');
-        }
-
-        $this->_status = $status;
-    }
-
-    public function setType($type)
-    {
-        if (!in_array($type, self::COMPLIANCE_TYPES)) {
-            throw new InvalidArgumentException('Invalid value passed to setType method!');
-        }
-
-        $this->_type = $type;
+        return ArrayHelper::getValue($_COOKIE, 'cookieconsent_status');
     }
 
     /**
@@ -104,7 +99,7 @@ class Component extends \yii\base\Component
      */
     protected function isStatusDenied()
     {
-        return $this->_status === self::STATUS_DENIED;
+        return $this->getStatus() === self::STATUS_DENIED;
     }
 
     /**
@@ -119,7 +114,7 @@ class Component extends \yii\base\Component
      */
     protected function isStatusDismissed()
     {
-        return $this->_status === self::STATUS_DISMISSED;
+        return $this->getStatus() === self::STATUS_DISMISSED;
     }
 
     /**
@@ -130,7 +125,7 @@ class Component extends \yii\base\Component
      */
     protected function isStatusAllowed()
     {
-        return $this->_status === self::STATUS_ALLOWED;
+        return $this->getStatus() === self::STATUS_ALLOWED;
     }
 
     /**
@@ -139,7 +134,12 @@ class Component extends \yii\base\Component
      */
     public function isAllowed($category = null)
     {
-        switch ($this->_type) {
+        if ($category) {
+            return \Yii::$app->request->cookies->getValue(self::COOKIE_OPTION_PREFIX . $category, $this->getDefaultCookieValue());
+        }
+
+        // global status
+        switch ($this->complianceType) {
             case self::COMPLIANCE_TYPE_INFO:
                 return $this->isStatusDismissed();
                 break;
@@ -152,5 +152,23 @@ class Component extends \yii\base\Component
         }
 
         return false;
+    }
+
+    private function setDefaultCookieValue()
+    {
+        switch ($this->complianceType) {
+            case self::COMPLIANCE_TYPE_INFO:
+            case self::COMPLIANCE_TYPE_OPT_OUT:
+                $this->_defaultCookieValue = true;
+                break;
+            default:
+                $this->_defaultCookieValue = false;
+                break;
+        }
+    }
+
+    public function getDefaultCookieValue()
+    {
+        return $this->_defaultCookieValue;
     }
 }
