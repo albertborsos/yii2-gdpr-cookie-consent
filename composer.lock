@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1cd9d08c4638c3f16eb1221edd54e83",
+    "content-hash": "fc3951a23fd5daa865dfe00329406d25",
     "packages": [
         {
             "name": "2amigos/yii2-switch-widget",
@@ -63,6 +63,99 @@
                 "yii2"
             ],
             "time": "2017-07-05T14:51:41+00:00"
+        },
+        {
+            "name": "albertborsos/yii2-ddd",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/albertborsos/yii2-ddd.git",
+                "reference": "30fe733318d0223f0c485193c10782caa17b6f29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/albertborsos/yii2-ddd/zipball/30fe733318d0223f0c485193c10782caa17b6f29",
+                "reference": "30fe733318d0223f0c485193c10782caa17b6f29",
+                "shasum": ""
+            },
+            "require": {
+                "albertborsos/yii2-theme-helper": "~0.1",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "require-dev": {
+                "codeception/codeception": "~2.3",
+                "codeception/mockery-module": "^0.2.2",
+                "codeception/specify": " *",
+                "codeception/verify": " *",
+                "mito/yii2-coding-standards": "~2.0.0@beta",
+                "yiisoft/yii2-codeception": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "albertborsos\\ddd\\": "src/",
+                    "albertborsos\\ddd\\tests\\": "tests/",
+                    "albertborsos\\ddd\\tests\\support\\base\\": "tests/_support/base/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Abert Borsos",
+                    "email": "hello@borsosalbert.hu"
+                }
+            ],
+            "description": "Classes for Domain-Driven Development with Yii 2.0 Framework",
+            "keywords": [
+                "extension",
+                "yii2"
+            ],
+            "time": "2018-01-25T10:57:29+00:00"
+        },
+        {
+            "name": "albertborsos/yii2-theme-helper",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/albertborsos/yii2-theme-helper.git",
+                "reference": "ba0fb87dd1dc40cb2accb6ad77e7cd485d6e546a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/albertborsos/yii2-theme-helper/zipball/ba0fb87dd1dc40cb2accb6ad77e7cd485d6e546a",
+                "reference": "ba0fb87dd1dc40cb2accb6ad77e7cd485d6e546a",
+                "shasum": ""
+            },
+            "require": {
+                "rmrevin/yii2-fontawesome": "~2.17",
+                "yiisoft/yii2": "~2.0.0",
+                "yiisoft/yii2-bootstrap": "~2.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "albertborsos\\themehelper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Abert Borsos",
+                    "email": "hello@borsosalbert.hu"
+                }
+            ],
+            "description": "Helper classes for themes",
+            "keywords": [
+                "extension",
+                "yii2"
+            ],
+            "time": "2018-02-02T16:29:04+00:00"
         },
         {
             "name": "bower-asset/bootstrap",
@@ -458,6 +551,106 @@
                 "html"
             ],
             "time": "2017-06-03T02:28:16+00:00"
+        },
+        {
+            "name": "fortawesome/font-awesome",
+            "version": "v4.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "a8386aae19e200ddb0f6845b5feeee5eb7013687"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/a8386aae19e200ddb0f6845b5feeee5eb7013687",
+                "reference": "a8386aae19e200ddb0f6845b5feeee5eb7013687",
+                "shasum": ""
+            },
+            "require-dev": {
+                "jekyll": "1.0.2",
+                "lessc": "1.4.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.6.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OFL-1.1",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Gandy",
+                    "email": "dave@fontawesome.io",
+                    "homepage": "http://twitter.com/davegandy",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The iconic font and CSS framework",
+            "homepage": "http://fontawesome.io/",
+            "keywords": [
+                "FontAwesome",
+                "awesome",
+                "bootstrap",
+                "font",
+                "icon"
+            ],
+            "time": "2016-10-24T15:52:54+00:00"
+        },
+        {
+            "name": "rmrevin/yii2-fontawesome",
+            "version": "2.17.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rmrevin/yii2-fontawesome.git",
+                "reference": "65ce306da864f4d558348aeba040ed7876878090"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rmrevin/yii2-fontawesome/zipball/65ce306da864f4d558348aeba040ed7876878090",
+                "reference": "65ce306da864f4d558348aeba040ed7876878090",
+                "shasum": ""
+            },
+            "require": {
+                "fortawesome/font-awesome": "~4.7",
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "2.0.*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "rmrevin\\yii\\fontawesome\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Revin Roman",
+                    "email": "roman@rmrevin.com",
+                    "homepage": "https://rmrevin.com/"
+                }
+            ],
+            "description": "Asset Bundle for Yii2 with Font Awesome",
+            "keywords": [
+                "asset",
+                "awesome",
+                "bundle",
+                "font",
+                "yii"
+            ],
+            "time": "2017-01-11T14:05:47+00:00"
         },
         {
             "name": "yiisoft/yii2",
