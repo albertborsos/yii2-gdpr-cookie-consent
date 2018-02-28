@@ -4,7 +4,9 @@ namespace albertborsos\cookieconsent;
 
 use albertborsos\cookieconsent\widgets\CookieWidget;
 use yii\base\InvalidArgumentException;
+use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Inflector;
 
 class Component extends \yii\base\Component
 {
@@ -46,6 +48,17 @@ class Component extends \yii\base\Component
     const COOKIE_OPTION_PREFIX = 'cookieconsent_option_';
 
     /**
+     * Suggested format in config:
+     *
+     * ```
+     *  'extraCategories' => [
+     *      'customCategory' => [
+     *          'label' => 'Custom Category',
+     *          'hint' => 'Description of the Custom category.',
+     *      ],
+     *  ],
+     * ```
+     *
      * @var array custom cookie categories
      */
     public $extraCategories = [];
@@ -67,6 +80,7 @@ class Component extends \yii\base\Component
         }
 
         $this->calculateDefaultCookieValue();
+        $this->normalizeExtraCategories();
         parent::init();
     }
 
@@ -84,7 +98,8 @@ class Component extends \yii\base\Component
      */
     public function getCategories()
     {
-        return ArrayHelper::merge(self::CATEGORIES, $this->extraCategories);
+
+        return ArrayHelper::merge(self::CATEGORIES, array_keys($this->extraCategories));
     }
 
     /**
@@ -186,5 +201,30 @@ class Component extends \yii\base\Component
     public function getDefaultCookieValue()
     {
         return $this->_defaultCookieValue;
+    }
+
+    private function normalizeExtraCategories()
+    {
+        foreach ($this->extraCategories as $id => $data) {
+            if (!is_array($data) && is_int($id)) {
+                unset($this->extraCategories[$id]);
+                $id = $data;
+                $data = [];
+            }
+
+            if (in_array($id, self::CATEGORIES)) {
+                throw new InvalidConfigException('You cannot use "' . $id . '" default category in "extraCategories" property items.');
+            }
+
+            if (isset($data['id'])) {
+                throw new InvalidConfigException('Do not set "id" for "extraCategories" property items.');
+            }
+
+            $this->extraCategories[$id] = [
+                'id' => $id,
+                'label' => ArrayHelper::getValue($data, 'label', Inflector::humanize($id)),
+                'hint' => ArrayHelper::getValue($data, 'hint', Inflector::humanize($id)),
+            ];
+        }
     }
 }
