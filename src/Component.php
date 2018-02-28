@@ -141,10 +141,8 @@ class Component extends \yii\base\Component
         // global status
         switch ($this->complianceType) {
             case self::COMPLIANCE_TYPE_INFO:
-                return $this->isStatusDismissed();
-                break;
             case self::COMPLIANCE_TYPE_OPT_OUT:
-                return $this->isStatusDenied();
+                return $this->isStatusDismissed();
                 break;
             case self::COMPLIANCE_TYPE_OPT_IN:
                 return $this->isStatusAllowed();
@@ -161,8 +159,9 @@ class Component extends \yii\base\Component
             case self::COMPLIANCE_TYPE_OPT_OUT:
                 $this->_defaultCookieValue = true;
                 break;
-            default:
-                $this->_defaultCookieValue = false;
+            case self::COMPLIANCE_TYPE_OPT_IN:
+                // while it is not allowed, it is false
+                $this->_defaultCookieValue = $this->isAllowed();
                 break;
         }
     }
