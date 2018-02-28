@@ -66,7 +66,7 @@ class Component extends \yii\base\Component
             throw new InvalidArgumentException('Invalid value in "type" property!');
         }
 
-        $this->setDefaultCookieValue();
+        $this->calculateDefaultCookieValue();
         parent::init();
     }
 
@@ -79,11 +79,17 @@ class Component extends \yii\base\Component
         CookieWidget::widget($config);
     }
 
+    /**
+     * @return array
+     */
     public function getCategories()
     {
         return ArrayHelper::merge(self::CATEGORIES, $this->extraCategories);
     }
 
+    /**
+     * @return mixed|null
+     */
     public function getStatus()
     {
         return ArrayHelper::getValue($_COOKIE, 'cookieconsent_status');
@@ -152,20 +158,31 @@ class Component extends \yii\base\Component
         return false;
     }
 
-    private function setDefaultCookieValue()
+    /**
+     * @return bool
+     */
+    public function isAnswered()
+    {
+        return $this->getStatus() !== null;
+    }
+
+    private function calculateDefaultCookieValue()
     {
         switch ($this->complianceType) {
             case self::COMPLIANCE_TYPE_INFO:
             case self::COMPLIANCE_TYPE_OPT_OUT:
-                $this->_defaultCookieValue = true;
+                $this->_defaultCookieValue = $this->isAnswered() ? $this->isAllowed() : true;
                 break;
             case self::COMPLIANCE_TYPE_OPT_IN:
                 // while it is not allowed, it is false
-                $this->_defaultCookieValue = $this->isAllowed();
+                $this->_defaultCookieValue = $this->isAnswered() ? $this->isAllowed() : false;
                 break;
         }
     }
 
+    /**
+     * @return bool
+     */
     public function getDefaultCookieValue()
     {
         return $this->_defaultCookieValue;
