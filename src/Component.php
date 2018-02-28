@@ -33,7 +33,7 @@ class Component extends \yii\base\Component
 
     const CATEGORY_SESSION      = 'session';
     const CATEGORY_ADS          = 'ads';
-    const CATEGORY_USAGE_HELPER = 'usage-helper';
+    const CATEGORY_USAGE_HELPER = 'usagehelper';
     const CATEGORY_PERFORMANCE  = 'performance';
     const CATEGORY_BEHAVIOR     = 'behavior';
 
@@ -150,12 +150,39 @@ class Component extends \yii\base\Component
     }
 
     /**
+     * @return bool
+     */
+    public function isOptOut()
+    {
+        return $this->complianceType === self::COMPLIANCE_TYPE_OPT_OUT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOptIn()
+    {
+        return $this->complianceType === self::COMPLIANCE_TYPE_OPT_IN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInfo()
+    {
+        return $this->complianceType === self::COMPLIANCE_TYPE_INFO;
+    }
+
+    /**
      * @param null|string $category
      * @return bool
      */
     public function isAllowed($category = null)
     {
         if ($category) {
+            if ($this->isRequiredToAllow($category)) {
+                return true;
+            }
             return \Yii::$app->request->cookies->getValue(self::COOKIE_OPTION_PREFIX . $category, $this->getDefaultCookieValue());
         }
 
@@ -226,5 +253,10 @@ class Component extends \yii\base\Component
                 'hint' => ArrayHelper::getValue($data, 'hint', Inflector::humanize($id)),
             ];
         }
+    }
+
+    public function isRequiredToAllow($category)
+    {
+        return in_array($category, [self::CATEGORY_SESSION]);
     }
 }
