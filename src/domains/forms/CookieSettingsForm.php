@@ -49,7 +49,7 @@ class CookieSettingsForm extends Model implements FormObject
     /**
      * @return bool
      */
-    function hasAllowedCategory()
+    public function hasAllowedCategory()
     {
         foreach ($this->options as $key => $value) {
             if ($value == 1 && !$this->getComponent()->isRequiredToAllow($key)) {
@@ -62,7 +62,7 @@ class CookieSettingsForm extends Model implements FormObject
     /**
      * @return bool
      */
-    function hasDisallowedCategory()
+    public function hasDisallowedCategory()
     {
         foreach ($this->options as $key => $value) {
             if ($value == 0) {

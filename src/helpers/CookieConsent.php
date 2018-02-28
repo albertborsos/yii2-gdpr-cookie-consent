@@ -38,7 +38,7 @@ class CookieConsent
     {
         /** @var Component $component */
         $component = Instance::ensure('cookieConsent', Component::class);
-        return $component->isAllowed(static::getCategoryByType($type));
+        return $component->isAllowed(self::getCategoryByType($type));
     }
 
     public static function isAllowedCategory($category)
