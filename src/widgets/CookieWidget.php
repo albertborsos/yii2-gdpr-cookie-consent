@@ -234,8 +234,8 @@ class CookieWidget extends Widget
 
     private function getRemoveCookieJsExpression()
     {
-        return new \yii\web\JsExpression("function(){
-            var cookieNames = " . \yii\helpers\Json::encode($this->getComponent()->getCategories()) . ";
+        return new \yii\web\JsExpression('function(){
+            var cookieNames = ' . \yii\helpers\Json::encode($this->getComponent()->getCategories()) . ";
             $.each(cookieNames, function(){
                 document.cookie = 'cookieconsent_option_' + this + '=; Max-Age=0';
             })
