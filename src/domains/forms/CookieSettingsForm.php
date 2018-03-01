@@ -17,9 +17,15 @@ class CookieSettingsForm extends Model implements FormObject
      */
     private $_component;
 
+    /**
+     * CookieSettingsForm constructor.
+     * @param array $config
+     */
     public function __construct(array $config = [])
     {
-        $this->setComponent(Instance::ensure('cookieConsent', Component::class));
+        /** @var Component $component */
+        $component = Instance::ensure('cookieConsent', Component::class);
+        $this->setComponent($component);
         parent::__construct($config);
     }
 
