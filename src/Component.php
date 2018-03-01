@@ -7,7 +7,6 @@ use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
-use yii\web\Application;
 
 class Component extends \yii\base\Component
 {
@@ -99,7 +98,6 @@ class Component extends \yii\base\Component
      */
     public function getCategories()
     {
-
         return ArrayHelper::merge(self::CATEGORIES, array_keys($this->extraCategories));
     }
 
