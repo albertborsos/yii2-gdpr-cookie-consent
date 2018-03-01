@@ -4,6 +4,7 @@ namespace albertborsos\cookieconsent\domains;
 
 use albertborsos\cookieconsent\Component;
 use albertborsos\ddd\models\AbstractDomain;
+use yii\helpers\ArrayHelper;
 use yii\web\Cookie;
 
 class CookieSettingsDomain extends AbstractDomain
@@ -25,13 +26,10 @@ class CookieSettingsDomain extends AbstractDomain
     {
         foreach ($this->getForm()->options as $category => $newValue) {
             $name = Component::COOKIE_OPTION_PREFIX . $category;
-            $currentValue = \Yii::$app->request->cookies->getValue($name);
+            $currentValue = ArrayHelper::getValue($_COOKIE, $name);
             if ($currentValue !== $newValue) {
-                \Yii::$app->response->cookies->remove($name);
-                \Yii::$app->response->cookies->add(new Cookie([
-                    'name' => $name,
-                    'value' => $newValue,
-                ]));
+                unset($_COOKIE[$name]);
+                setcookie($name, $newValue);
             }
         }
     }

@@ -186,7 +186,7 @@ class Component extends \yii\base\Component
             if ($this->isRequiredToAllow($category)) {
                 return true;
             }
-            return \Yii::$app->request->cookies->getValue(self::COOKIE_OPTION_PREFIX . $category, $this->getDefaultCookieValue());
+            return ArrayHelper::getValue($_COOKIE, self::COOKIE_OPTION_PREFIX . $category, $this->getDefaultCookieValue());
         }
 
         // global status

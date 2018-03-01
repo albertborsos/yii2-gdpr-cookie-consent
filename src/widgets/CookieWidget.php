@@ -200,6 +200,13 @@ class CookieWidget extends Widget
         if (!empty($this->policyLink)) {
             $this->pluginOptions['content']['href'] = Url::to($this->policyLink, true);
         }
+
+        if (!isset($this->pluginOptions['onStatusChange'])) {
+            $this->pluginOptions['onStatusChange'] = $this->getRemoveCookieJsExpression();
+        }
+        if (!isset($this->pluginOptions['onRevokeChoice'])) {
+            $this->pluginOptions['onRevokeChoice'] = $this->getRemoveCookieJsExpression();
+        }
     }
 
     /**
@@ -223,5 +230,15 @@ class CookieWidget extends Widget
     private function loadComponent()
     {
         $this->_component = Instance::ensure('cookieConsent', Component::class);
+    }
+
+    private function getRemoveCookieJsExpression()
+    {
+        return new \yii\web\JsExpression("function(){
+            var cookieNames = " . \yii\helpers\Json::encode($this->getComponent()->getCategories()) . ";
+            $.each(cookieNames, function(){
+                document.cookie = 'cookieconsent_option_' + this + '=; Max-Age=0';
+            })
+        }");
     }
 }
