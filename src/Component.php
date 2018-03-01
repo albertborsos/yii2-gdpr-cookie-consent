@@ -270,6 +270,10 @@ class Component extends \yii\base\Component
                 throw new InvalidConfigException('Do not set "id" for "extraCategories" property items.');
             }
 
+            if (preg_match('/[^A-Za-z]+/', $id)) {
+                throw new InvalidConfigException('Category names must contains only word characters.');
+            }
+
             $this->extraCategories[$id] = [
                 'id' => $id,
                 'label' => ArrayHelper::getValue($data, 'label', Inflector::humanize($id)),
