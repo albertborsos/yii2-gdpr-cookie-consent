@@ -7,9 +7,12 @@ use yii\web\AssetBundle;
 class CookieConsentAsset extends AssetBundle
 {
     /**
+     * Workaround for this issue: https://github.com/insites/cookieconsent/pull/261
+     *
      * @var string
      */
-    public $sourcePath = '@bower/cookieconsent/build/';
+    public $sourcePath = '@vendor/albertborsos/yii2-gdpr-cookie-consent/src/assets/vendor/cookieconsent-fixed/';
+    // public $sourcePath = '@bower/cookieconsent/build/';
 
     /**
      * @var array
