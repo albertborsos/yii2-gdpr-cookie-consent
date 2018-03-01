@@ -64,6 +64,20 @@ class Component extends \yii\base\Component
     public $extraCategories = [];
 
     /**
+     * Categories to hide from settings form.
+     * `session` and `usagehelper` categories will be ignored from this list.
+     *
+     * ```
+     * 'disabledCategories' => [
+     *     \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR,
+     * ],
+     * ```
+     *
+     * @var array
+     */
+    public $disabledCategories = [];
+
+    /**
      * @var string compliance type
      */
     public $complianceType;
@@ -73,6 +87,9 @@ class Component extends \yii\base\Component
      */
     private $_defaultCookieValue;
 
+    /**
+     * @throws InvalidConfigException
+     */
     public function init()
     {
         if (!in_array($this->complianceType, self::COMPLIANCE_TYPES)) {
@@ -81,6 +98,7 @@ class Component extends \yii\base\Component
 
         $this->calculateDefaultCookieValue();
         $this->normalizeExtraCategories();
+        $this->normalizeDisabledCategories();
         parent::init();
     }
 
@@ -98,7 +116,9 @@ class Component extends \yii\base\Component
      */
     public function getCategories()
     {
-        return ArrayHelper::merge(self::CATEGORIES, array_keys($this->extraCategories));
+        $categories = ArrayHelper::merge(self::CATEGORIES, array_keys($this->extraCategories));
+
+        return array_diff($categories, $this->disabledCategories);
     }
 
     /**
@@ -256,6 +276,12 @@ class Component extends \yii\base\Component
                 'hint' => ArrayHelper::getValue($data, 'hint', Inflector::humanize($id)),
             ];
         }
+    }
+
+    private function normalizeDisabledCategories()
+    {
+        ArrayHelper::removeValue($this->disabledCategories, self::CATEGORY_SESSION);
+        ArrayHelper::removeValue($this->disabledCategories, self::CATEGORY_USAGE_HELPER);
     }
 
     public function isRequiredToAllow($category)
