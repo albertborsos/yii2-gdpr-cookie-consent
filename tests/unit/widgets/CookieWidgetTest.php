@@ -74,7 +74,7 @@ class CookieWidgetTest extends \Codeception\Test\Unit
             'denyButtonText' => 'deny',
             'allowButtonText' => 'allow',
             'policyLinkText' => 'link',
-            'policyLink' => 'href'
+            'policyLink' => 'href',
         ];
 
         foreach ($contentFields as $widgetField => $pluginOptionKey) {
