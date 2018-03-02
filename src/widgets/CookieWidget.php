@@ -154,6 +154,7 @@ class CookieWidget extends Widget
         if (!empty($this->position)) {
             $this->pluginOptions['position'] = $this->position;
 
+            $this->pluginOptions['static'] = false;
             if ($this->position === self::POSITION_TOP_PUSHDOWN) {
                 $this->pluginOptions['position'] = self::POSITION_TOP;
                 $this->pluginOptions['static'] = true;
