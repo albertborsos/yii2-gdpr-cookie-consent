@@ -7,3 +7,6 @@ modules:
     enabled:
         - Asserts
         - \Helper\Unit
+        - Yii2:
+            configFile: 'tests/config/unit.php'
+            part: init

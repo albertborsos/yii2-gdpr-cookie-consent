@@ -18,13 +18,21 @@
         "albertborsos/yii2-ddd": "^0.1.0"
     },
     "require-dev": {
-        "yiisoft/yii2-codeception": "~2.0",
         "satooshi/php-coveralls": "~1.0",
+        "phpunit/phpunit": "^5.0.0",
         "codeception/codeception": "~2.3",
         "codeception/specify": " *",
         "codeception/verify": " *",
         "codeception/mockery-module": "^0.2.2",
         "mito/yii2-coding-standards": "~2.0.0@beta"
+    },
+    "config": {
+        "fxp-asset": {
+            "installer-paths": {
+                "bower-asset-library": "vendor/bower",
+                "npm-asset-library": "vendor/npm"
+            }
+        }
     },
     "autoload": {
         "psr-4": {
