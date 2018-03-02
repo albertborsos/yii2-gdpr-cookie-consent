@@ -194,7 +194,7 @@ class CookieWidget extends Widget
         }
 
         if (!empty($this->policyLinkText)) {
-            $this->pluginOptions['content']['policy'] = $this->policyLinkText;
+            $this->pluginOptions['content']['link'] = $this->policyLinkText;
         }
 
         if (!empty($this->policyLink)) {
@@ -238,7 +238,13 @@ class CookieWidget extends Widget
             var cookieNames = ' . \yii\helpers\Json::encode($this->getComponent()->getCategories()) . ";
             $.each(cookieNames, function(){
                 document.cookie = 'cookieconsent_option_' + this + '=; Max-Age=0';
-            })
+            });
+            var currentUrl = window.location.href;
+            var policyUrl = '" . Url::to($this->policyLink, true) . "';
+            if (currentUrl==policyUrl) {
+                // update cookie settings page if cookieconsent status changed on this page
+                window.location.reload();
+            }
         }");
     }
 }
