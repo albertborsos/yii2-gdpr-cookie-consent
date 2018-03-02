@@ -13,8 +13,13 @@ class CookieWidgetTest extends \Codeception\Test\Unit
             'position top-pushdown' => [['position' => 'top-pushdown'], ['position' => 'top', 'static' => true]],
             'modified paletteConfig' => [['paletteConfig' => ['popup' => ['background' => '#fff']]], ['palette' => ['popup' => ['background' => '#fff']]]],
             'paletteConfig is false' => [['paletteConfig' => false], ['palette' => []]],
-            'paletteConfig is empty array' => [['paletteConfig' => []], ['palette' => []]],
             'modified layout' => [['layout' => 'edgeless'], ['layout' => 'edgeless']],
+            'custom message' => [['message' => 'custom'], ['content' => ['message' => 'custom']]],
+            'custom dismissButtonText' => [['dismissButtonText' => 'custom'], ['content' => ['dismiss' => 'custom']]],
+            'custom denyButtonText' => [['denyButtonText' => 'custom'], ['content' => ['deny' => 'custom']]],
+            'custom allowButtonText' => [['allowButtonText' => 'custom'], ['content' => ['allow' => 'custom']]],
+            'custom policyLinkText' => [['policyLinkText' => 'custom'], ['content' => ['link' => 'custom']]],
+            'custom policyLink' => [['policyLink' => 'custom'], ['content' => ['href' => 'http://localhost/custom']]],
         ];
     }
 
@@ -50,31 +55,34 @@ class CookieWidgetTest extends \Codeception\Test\Unit
             ],
         ], $expectedConfig);
 
+
         $widget = $this->mockWidget($widgetConfig);
         $this->assertEquals($expectedPluginOptions['domain'], $widget->pluginOptions['domain']);
         $this->assertEquals($expectedPluginOptions['position'], $widget->pluginOptions['position']);
         $this->assertEquals($expectedPluginOptions['static'], $widget->pluginOptions['static']);
-        if (empty($expectedPluginOptions['palette'])) {
+        if (ArrayHelper::getValue($widgetConfig, 'paletteConfig') === false) {
             $this->assertEmpty(ArrayHelper::getValue($widget->pluginOptions, 'palette'));
         } else {
             $this->assertEquals($expectedPluginOptions['palette'], $widget->pluginOptions['palette']);
         }
         $this->assertEquals($expectedPluginOptions['layout'], $widget->pluginOptions['layout']);
         $this->assertEquals($expectedPluginOptions['type'], $widget->pluginOptions['type']);
-        if (!preg_match(CookieWidget::REGEX_IS_ENGLISH_LANGUAGE, $appLanguage)) {
-            $this->assertEquals($expectedPluginOptions['content']['message'], ArrayHelper::getValue($widget->pluginOptions, 'content.message'));
-            $this->assertEquals($expectedPluginOptions['content']['dismiss'], ArrayHelper::getValue($widget->pluginOptions, 'content.dismiss'));
-            $this->assertEquals($expectedPluginOptions['content']['deny'], ArrayHelper::getValue($widget->pluginOptions, 'content.deny'));
-            $this->assertEquals($expectedPluginOptions['content']['allow'], ArrayHelper::getValue($widget->pluginOptions, 'content.allow'));
-            $this->assertEquals($expectedPluginOptions['content']['link'], ArrayHelper::getValue($widget->pluginOptions, 'content.link'));
-            $this->assertEquals($expectedPluginOptions['content']['href'], ArrayHelper::getValue($widget->pluginOptions, 'content.href'));
-        } else { // if language is english
-            $this->assertEmpty(ArrayHelper::getValue($widget->pluginOptions, 'content.message'));
-            $this->assertEmpty(ArrayHelper::getValue($widget->pluginOptions, 'content.dismiss'));
-            $this->assertEmpty(ArrayHelper::getValue($widget->pluginOptions, 'content.deny'));
-            $this->assertEmpty(ArrayHelper::getValue($widget->pluginOptions, 'content.allow'));
-            $this->assertEmpty(ArrayHelper::getValue($widget->pluginOptions, 'content.link'));
-            $this->assertEmpty(ArrayHelper::getValue($widget->pluginOptions, 'content.href'));
+
+        $contentFields = [
+            'message' => 'message',
+            'dismissButtonText' => 'dismiss',
+            'denyButtonText' => 'deny',
+            'allowButtonText' => 'allow',
+            'policyLinkText' => 'link',
+            'policyLink' => 'href'
+        ];
+
+        foreach ($contentFields as $widgetField => $pluginOptionKey) {
+            if (!preg_match(CookieWidget::REGEX_IS_ENGLISH_LANGUAGE, $appLanguage) || isset($widgetConfig[$widgetField])) {
+                $this->assertEquals($expectedPluginOptions['content'][$pluginOptionKey], ArrayHelper::getValue($widget->pluginOptions, 'content.' . $pluginOptionKey));
+            } else { // if language is english
+                $this->assertEmpty(ArrayHelper::getValue($widget->pluginOptions, 'content.' . $pluginOptionKey));
+            }
         }
     }
 

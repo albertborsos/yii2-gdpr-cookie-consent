@@ -186,11 +186,11 @@ class CookieWidget extends Widget
             $this->pluginOptions['content']['dismiss'] = $this->dismissButtonText;
         }
 
-        if ($this->getComponent()->complianceType === self::COMPLIANCE_TYPE_OPT_OUT && !empty($this->denyButtonText)) {
+        if (!empty($this->denyButtonText)) {
             $this->pluginOptions['content']['deny'] = $this->denyButtonText;
         }
 
-        if ($this->getComponent()->complianceType === self::COMPLIANCE_TYPE_OPT_IN && !empty($this->allowButtonText)) {
+        if (!empty($this->allowButtonText)) {
             $this->pluginOptions['content']['allow'] = $this->allowButtonText;
         }
 
