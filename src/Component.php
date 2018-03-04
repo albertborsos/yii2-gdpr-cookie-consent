@@ -88,6 +88,11 @@ class Component extends \yii\base\Component
     private $_defaultCookieValue;
 
     /**
+     * @var string value of `cookieconsent_status` cookie
+     */
+    private $_status;
+
+    /**
      * @throws InvalidConfigException
      */
     public function init()
@@ -96,6 +101,7 @@ class Component extends \yii\base\Component
             throw new InvalidArgumentException('Invalid value in "type" property!');
         }
 
+        $this->setStatus();
         $this->calculateDefaultCookieValue();
         $this->normalizeExtraCategories();
         $this->normalizeDisabledCategories();
@@ -122,11 +128,22 @@ class Component extends \yii\base\Component
     }
 
     /**
+     * @param null $status
+     */
+    public function setStatus($status = null)
+    {
+        $this->_status = $status ?: ArrayHelper::getValue($_COOKIE, 'cookieconsent_status');
+    }
+
+    /**
      * @return mixed|null
      */
     public function getStatus()
     {
-        return ArrayHelper::getValue($_COOKIE, 'cookieconsent_status');
+        if (empty($this->_status)) {
+            $this->setStatus();
+        }
+        return $this->_status;
     }
 
     /**
