@@ -10,6 +10,12 @@ use yii\helpers\ArrayHelper;
 
 class CookieSettingsForm extends Model implements FormObject
 {
+
+    /**
+     * category-state key-value pairs filled from the form
+     *
+     * @var array
+     */
     public $options = [];
 
     /**
@@ -39,44 +45,9 @@ class CookieSettingsForm extends Model implements FormObject
     {
         return [
             [['options'], 'each', 'rule' => ['boolean']],
-            [['options'], 'sessionIsRequired'],
-            [['options'], 'usageHelperIsRequired', 'when' => function () {
-                if ($this->getComponent()->isOptOut()) {
-                    return $this->getComponent()->isAllowed() ? $this->hasDisallowedCategory() : $this->hasAllowedCategory();
-                } elseif ($this->getComponent()->isOptIn()) {
-                    return $this->getComponent()->isAllowed() ? $this->hasAllowedCategory() : $this->hasDisallowedCategory();
-                }
-                // info type
-                return false;
-            }],
+            [['options'], 'optionIsRequired', 'params' => ['category' => Component::CATEGORY_SESSION]],
+            [['options'], 'optionIsRequired', 'params' => ['category' => Component::CATEGORY_USAGE_HELPER]],
         ];
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasAllowedCategory()
-    {
-        foreach ($this->options as $key => $value) {
-            if ($value == 1 && !$this->getComponent()->isRequiredToAllow($key)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    /**
-     * @return bool
-     */
-    public function hasDisallowedCategory()
-    {
-        foreach ($this->options as $key => $value) {
-            if ($value == 0) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public function attributeLabels()
@@ -103,21 +74,13 @@ class CookieSettingsForm extends Model implements FormObject
         ], $extraCategories);
     }
 
-    public function sessionIsRequired($attribute)
+    public function optionIsRequired($attribute, $params)
     {
-        $sessionCategory = ArrayHelper::getValue($this->{$attribute}, Component::CATEGORY_SESSION);
+        $category = $params['category'];
+        $optionCategory = ArrayHelper::getValue($this->{$attribute}, $category);
 
-        if (!$sessionCategory) {
-            $this->addError($attribute . '.' . Component::CATEGORY_SESSION, \Yii::t('cookieconsent/widget', 'form.error.session-is-required'));
-        }
-    }
-
-    public function usageHelperIsRequired($attribute)
-    {
-        $usageHelperCategory = ArrayHelper::getValue($this->{$attribute}, Component::CATEGORY_USAGE_HELPER);
-
-        if (!$usageHelperCategory) {
-            $this->addError($attribute . '.' . Component::CATEGORY_USAGE_HELPER, \Yii::t('cookieconsent/widget', 'form.error.usage-helper-is-required'));
+        if (!$optionCategory) {
+            $this->addError($attribute . '.' . $category, \Yii::t('cookieconsent/widget', 'form.error.' . $category . '-is-required'));
         }
     }
 

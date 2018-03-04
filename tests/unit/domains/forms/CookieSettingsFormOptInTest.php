@@ -10,17 +10,13 @@ class CookieSettingsFormOptInTest extends \albertborsos\ddd\tests\support\base\A
 {
     protected $formClass = \albertborsos\cookieconsent\domains\forms\CookieSettingsForm::class;
 
-    protected function setUp()
-    {
-        Yii::$app->cookieConsent->complianceType = \albertborsos\cookieconsent\Component::COMPLIANCE_TYPE_OPT_IN;
-        return parent::setUp();
-    }
-
-    public function invalidSettingsDefaultProvider()
+    public function invalidSettingsProvider()
     {
         return [
-            'session is always required' => ['options.session', 0, 1, 1, 1, 1],
-            'usage helper is required if at least one (not mandatory) category is enabled' => ['options.usagehelper', 1, 0, 0, 0, 1],
+            'session is always required - disabled' => ['options.session', 0, 0, 1, 0, 0],
+            'session is always required - enabled' => ['options.session', 0, 1, 1, 1, 1],
+            'usagehelper is always required - disabled' => ['options.usagehelper', 1, 0, 0, 0, 0],
+            'usagehelper is always required - enabled' => ['options.usagehelper', 1, 1, 0, 1, 1],
         ];
     }
 
@@ -28,12 +24,12 @@ class CookieSettingsFormOptInTest extends \albertborsos\ddd\tests\support\base\A
     {
         return [
             'everything is enabled' => [1, 1, 1, 1, 1],
-            //'everything is disabled but session' => [1, 0, 0, 0, 0],
+            'everything is disabled but session and usagehelper' => [1, 0, 1, 0, 0],
         ];
     }
 
     /**
-     * @dataProvider invalidSettingsDefaultProvider
+     * @dataProvider invalidSettingsProvider
      *
      * @param $expectedErrorField
      * @param $session
@@ -42,8 +38,9 @@ class CookieSettingsFormOptInTest extends \albertborsos\ddd\tests\support\base\A
      * @param $performance
      * @param $behavior
      */
-    public function testInvalid($expectedErrorField, $session, $ads, $usageHelper, $performance, $behavior)
+    public function testNotAnsweredInvalid($expectedErrorField, $session, $ads, $usageHelper, $performance, $behavior)
     {
+        $this->mockComponent(null);
         $form = $this->mockForm([
             'options' => [
                 \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
@@ -55,7 +52,63 @@ class CookieSettingsFormOptInTest extends \albertborsos\ddd\tests\support\base\A
         ]);
 
         $this->assertFalse($form->validate());
-        $this->assertEquals(1, count($form->getErrors()));
+        $this->assertEquals(1, count($form->getErrors()), \yii\helpers\Json::encode($form->getErrors()));
+        $this->assertArrayHasKey($expectedErrorField, $form->getErrors());
+    }
+
+    /**
+     * @dataProvider invalidSettingsProvider
+     *
+     * @param $expectedErrorField
+     * @param $session
+     * @param $ads
+     * @param $usageHelper
+     * @param $performance
+     * @param $behavior
+     */
+    public function testDismissedInvalid($expectedErrorField, $session, $ads, $usageHelper, $performance, $behavior)
+    {
+        $this->mockComponent(\albertborsos\cookieconsent\Component::STATUS_DISMISSED);
+        $form = $this->mockForm([
+            'options' => [
+                \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
+                \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
+                \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\Component::CATEGORY_PERFORMANCE => $performance,
+                \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
+            ],
+        ]);
+
+        $this->assertFalse($form->validate());
+        $this->assertEquals(1, count($form->getErrors()), \yii\helpers\Json::encode($form->getErrors()));
+        $this->assertArrayHasKey($expectedErrorField, $form->getErrors());
+    }
+
+    /**
+     * @dataProvider invalidSettingsProvider
+     *
+     * @param $expectedErrorField
+     * @param $session
+     * @param $ads
+     * @param $usageHelper
+     * @param $performance
+     * @param $behavior
+     */
+    public function testAllowedInvalid($expectedErrorField, $session, $ads, $usageHelper, $performance, $behavior)
+    {
+        $this->mockComponent(\albertborsos\cookieconsent\Component::STATUS_ALLOWED);
+        $form = $this->mockForm([
+            'options' => [
+                \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
+                \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
+                \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\Component::CATEGORY_PERFORMANCE => $performance,
+                \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
+            ],
+        ]);
+
+        $this->assertFalse($form->validate());
+        $this->assertEquals(1, count($form->getErrors()), \yii\helpers\Json::encode($form->getErrors()));
         $this->assertArrayHasKey($expectedErrorField, $form->getErrors());
     }
 
@@ -68,8 +121,9 @@ class CookieSettingsFormOptInTest extends \albertborsos\ddd\tests\support\base\A
      * @param $performance
      * @param $behavior
      */
-    public function testValid($session, $ads, $usageHelper, $performance, $behavior)
+    public function testNotAnsweredValid($session, $ads, $usageHelper, $performance, $behavior)
     {
+        $this->mockComponent(null);
         $form = $this->mockForm([
             'options' => [
                 \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
@@ -81,6 +135,64 @@ class CookieSettingsFormOptInTest extends \albertborsos\ddd\tests\support\base\A
         ]);
 
         $this->assertTrue($form->validate());
-        $this->assertEquals(0, count($form->getErrors()));
+        $this->assertEquals(0, count($form->getErrors()), \yii\helpers\Json::encode($form->getErrors()));
+    }
+
+    /**
+     * @dataProvider validSettingsProvider
+     *
+     * @param $session
+     * @param $ads
+     * @param $usageHelper
+     * @param $performance
+     * @param $behavior
+     */
+    public function testDismissedValid($session, $ads, $usageHelper, $performance, $behavior)
+    {
+        $this->mockComponent(\albertborsos\cookieconsent\Component::STATUS_DISMISSED);
+        $form = $this->mockForm([
+            'options' => [
+                \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
+                \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
+                \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\Component::CATEGORY_PERFORMANCE => $performance,
+                \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
+            ],
+        ]);
+
+        $this->assertTrue($form->validate());
+        $this->assertEquals(0, count($form->getErrors()), \yii\helpers\Json::encode($form->getErrors()));
+    }
+
+    /**
+     * @dataProvider validSettingsProvider
+     *
+     * @param $session
+     * @param $ads
+     * @param $usageHelper
+     * @param $performance
+     * @param $behavior
+     */
+    public function testAllowedValid($session, $ads, $usageHelper, $performance, $behavior)
+    {
+        $this->mockComponent(\albertborsos\cookieconsent\Component::STATUS_ALLOWED);
+        $form = $this->mockForm([
+            'options' => [
+                \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
+                \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
+                \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\Component::CATEGORY_PERFORMANCE => $performance,
+                \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
+            ],
+        ]);
+
+        $this->assertTrue($form->validate());
+        $this->assertEquals(0, count($form->getErrors()), \yii\helpers\Json::encode($form->getErrors()));
+    }
+
+    private function mockComponent($status)
+    {
+        Yii::$app->cookieConsent->complianceType = \albertborsos\cookieconsent\Component::COMPLIANCE_TYPE_OPT_IN;
+        Yii::$app->cookieConsent->setStatus($status);
     }
 }

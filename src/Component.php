@@ -45,6 +45,11 @@ class Component extends \yii\base\Component
         self::CATEGORY_BEHAVIOR,
     ];
 
+    const CATEGORIES_REQUIRED = [
+        self::CATEGORY_SESSION,
+        self::CATEGORY_USAGE_HELPER
+    ];
+
     const COOKIE_OPTION_PREFIX = 'cookieconsent_option_';
 
     /**
@@ -301,12 +306,13 @@ class Component extends \yii\base\Component
 
     private function normalizeDisabledCategories()
     {
-        ArrayHelper::removeValue($this->disabledCategories, self::CATEGORY_SESSION);
-        ArrayHelper::removeValue($this->disabledCategories, self::CATEGORY_USAGE_HELPER);
+        foreach (self::CATEGORIES_REQUIRED as $requiredCategory) {
+            ArrayHelper::removeValue($this->disabledCategories, $requiredCategory);
+        }
     }
 
     public function isRequiredToAllow($category)
     {
-        return in_array($category, [self::CATEGORY_SESSION]);
+        return in_array($category, self::CATEGORIES_REQUIRED);
     }
 }

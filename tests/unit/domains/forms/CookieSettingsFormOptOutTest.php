@@ -10,41 +10,26 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
 {
     protected $formClass = \albertborsos\cookieconsent\domains\forms\CookieSettingsForm::class;
 
-    public function invalidSettingsNotAnsweredOrDismissedProvider()
+    public function invalidSettingsProvider()
     {
         return [
-            'session is always required' => ['options.session', 0, 1, 1, 1, 1],
-            'usage helper is required if at least one (not mandatory) category is disabled' => ['options.usagehelper', 1, 0, 0, 1, 1],
+            'session is always required - disabled' => ['options.session', 0, 0, 1, 0, 0],
+            'session is always required - enabled' => ['options.session', 0, 1, 1, 1, 1],
+            'usagehelper is always required - disabled' => ['options.usagehelper', 1, 0, 0, 0, 0],
+            'usagehelper is always required - enabled' => ['options.usagehelper', 1, 1, 0, 1, 1],
         ];
     }
 
-    public function invalidSettingsDeniedProvider()
-    {
-        return [
-            'session is always required' => ['options.session', 0, 0, 0, 0, 0],
-            'usage helper is required if at least one (not mandatory) category is enabled' => ['options.usagehelper', 1, 0, 0, 0, 1],
-        ];
-    }
-
-    public function validSettingsNotAnsweredOrDismissedProvider()
+    public function validSettingsProvider()
     {
         return [
             'everything is enabled' => [1, 1, 1, 1, 1],
-            'session and usagehelper is enabled' => [1, 0, 1, 0, 0],
-        ];
-    }
-
-    public function validSettingsDeniedProvider()
-    {
-        return [
-            'everything is enabled' => [1, 1, 1, 1, 1],
-            'everything is disabled but session' => [1, 0, 0, 0, 0],
-            'session and usagehelper is enabled' => [1, 0, 1, 0, 0],
+            'everything is disabled but session and usagehelper' => [1, 0, 1, 0, 0],
         ];
     }
 
     /**
-     * @dataProvider invalidSettingsNotAnsweredOrDismissedProvider
+     * @dataProvider invalidSettingsProvider
      *
      * @param $expectedErrorField
      * @param $session
@@ -72,7 +57,7 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
         $this->assertArrayHasKey($expectedErrorField, $form->getErrors());
     }
     /**
-     * @dataProvider invalidSettingsNotAnsweredOrDismissedProvider
+     * @dataProvider invalidSettingsProvider
      *
      * @param $expectedErrorField
      * @param $session
@@ -100,7 +85,7 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
     }
 
     /**
-     * @dataProvider invalidSettingsDeniedProvider
+     * @dataProvider invalidSettingsProvider
      *
      * @param $expectedErrorField
      * @param $session
@@ -128,7 +113,7 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
     }
 
     /**
-     * @dataProvider validSettingsNotAnsweredOrDismissedProvider
+     * @dataProvider validSettingsProvider
      *
      * @param $session
      * @param $ads
@@ -154,7 +139,7 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
     }
 
     /**
-     * @dataProvider validSettingsNotAnsweredOrDismissedProvider
+     * @dataProvider validSettingsProvider
      *
      * @param $session
      * @param $ads
@@ -180,7 +165,7 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
     }
 
     /**
-     * @dataProvider validSettingsDeniedProvider
+     * @dataProvider validSettingsProvider
      *
      * @param $session
      * @param $ads
