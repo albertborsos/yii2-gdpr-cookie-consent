@@ -47,7 +47,7 @@ class Component extends \yii\base\Component
 
     const CATEGORIES_REQUIRED = [
         self::CATEGORY_SESSION,
-        self::CATEGORY_USAGE_HELPER
+        self::CATEGORY_USAGE_HELPER,
     ];
 
     const COOKIE_OPTION_PREFIX = 'cookieconsent_option_';
