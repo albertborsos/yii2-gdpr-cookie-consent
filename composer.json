@@ -15,14 +15,13 @@
         "yiisoft/yii2": "~2.0.0",
         "bower-asset/cookieconsent": "^3.0",
         "2amigos/yii2-switch-widget": "^1.0",
-        "albertborsos/yii2-ddd": "^0.1.0"
+        "albertborsos/yii2-ddd": "^0.2.0"
     },
     "require-dev": {
         "satooshi/php-coveralls": "~1.0",
-        "phpunit/phpunit": "^5.0.0",
-        "codeception/codeception": "~2.3",
-        "codeception/specify": " *",
-        "codeception/verify": " *",
+        "codeception/codeception": "^2.4",
+        "codeception/verify": "~0.4.0",
+        "codeception/specify": "~0.4.6",
         "codeception/mockery-module": "^0.2.2",
         "mito/yii2-coding-standards": "~2.0.0@beta"
     },
