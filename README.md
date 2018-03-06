@@ -20,4 +20,83 @@ composer require --prefer-dist albertborsos/yii2-gdpr-cookie-consent
 Usage
 -----
 
-TBD
+add the component to your config file:
+
+```php
+<?php
+return [
+    // ...
+    'components' => [
+        // ...
+        'cookieConsent' => [
+            'class' => \albertborsos\cookieconsent\Component::class,
+            'complianceType' => \albertborsos\cookieconsent\Component::COMPLIANCE_TYPE_OPT_OUT,
+        ],
+        // ...
+        'i18n' => [
+            // ...
+            'translations' => [
+                'cookieconsent/*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@vendor/albertborsos/yii2-gdpr-cookie-consent/src/messages',
+                ],
+            ],
+            // ...
+        ],
+    ],
+    // ...
+];
+```
+
+Register the widget in your layout. For example in a `_cookieconsent.php` partial view.
+
+```php
+<?php
+/** @var \albertborsos\cookieconsent\Component $component */
+$component = Yii::$app->cookieConsent;
+$component->registerWidget([
+    'policyLink' => ['/default/cookie-settings'],
+    'policyLinkText' => \yii\helpers\Html::tag('i', null, ['class' => 'fa fa-cog']) . ' Beállítások',
+    'pluginOptions' => [
+        'expiryDays' => 365,
+        'hasTransition' => false,
+        'revokeBtn' => '<div class="cc-revoke {{classes}}">Cookie Policy</div>',
+    ],
+]);
+
+```
+
+Add the cookie settings form to any of your controller:
+
+```php
+<?php
+
+class DefaultController extends \yii\web\Controller
+{
+    public function actions()
+    {
+        return [
+            'cookie-settings' => \albertborsos\cookieconsent\actions\CookieSettingsAction::class,
+        ];
+    }
+}
+
+```
+
+Check your relevant widget is allowed by the user or not with the CookieConsent helper class in the following way:
+
+```php
+<?php
+
+use \albertborsos\cookieconsent\helpers\CookieConsent;
+use \albertborsos\cookieconsent\Component;
+
+if(CookieConsent::isAllowedType(CookieConsent::TYPE_GOOGLE_ANALYTICS)){
+    // register GA script
+}
+
+if(CookieConsent::isAllowedCategory(Component::CATEGORY_BEHAVIOR)){
+    // register hotjar script
+}
+
+```
