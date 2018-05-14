@@ -88,6 +88,40 @@ class Component extends \yii\base\Component
     public $complianceType;
 
     /**
+     * Expiration time of the cookie categories settings.
+     * Cookie settings will be stored with the following expiration time: time() + $expirationTime
+     *
+     * this value will be passed to `setcookie()` method.
+     *
+     * @var float|int
+     */
+    public $cookieExpire = 60 * 60 * 24 * 365;
+
+    /**
+     * this value will be passed to `setcookie()` method.
+     * @var string
+     */
+    public $cookiePath = '/';
+
+    /**
+     * this value will be passed to `setcookie()` method.
+     * @var string
+     */
+    public $cookieDomain = '';
+
+    /**
+     * this value will be passed to `setcookie()` method.
+     * @var string
+     */
+    public $cookieSecure = false;
+
+    /**
+     * this value will be passed to `setcookie()` method.
+     * @var string
+     */
+    public $cookieHttpOnly = false;
+
+    /**
      * @var boolean calculated by the compliance type
      */
     private $_defaultCookieValue;
