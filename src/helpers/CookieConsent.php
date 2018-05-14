@@ -9,6 +9,8 @@ class CookieConsent
 {
     const TYPE_FACEBOOK = 'facebook';
     const TYPE_FACEBOOK_APP = 'facebook-app';
+    const TYPE_FACEBOOK_PIXEL = 'facebook-pixel';
+
     const TYPE_GOOGLE_ANALYTICS = 'google-analytics';
     const TYPE_GOOGLE_TAG_MANAGER = 'google-tag-manager';
 
@@ -19,8 +21,11 @@ class CookieConsent
     ];
 
     const MAPPING = [
+        Component::CATEGORY_ADS => [
+            self::TYPE_FACEBOOK_PIXEL,
+        ],
         Component::CATEGORY_USAGE_HELPER => [
-            self::TYPE_FACEBOOK_APP,
+            self::TYPE_FACEBOOK_APP, // facebook app cookies are required if it is in use
         ],
         Component::CATEGORY_PERFORMANCE => [
             self::TYPE_FACEBOOK,
@@ -32,7 +37,6 @@ class CookieConsent
     /**
      * @param $type
      * @return bool
-     * @throws \yii\base\InvalidConfigException
      */
     public static function isAllowedType($type)
     {
@@ -41,6 +45,10 @@ class CookieConsent
         return $component->isAllowed(self::getCategoryByType($type));
     }
 
+    /**
+     * @param $category
+     * @return bool
+     */
     public static function isAllowedCategory($category)
     {
         /** @var Component $component */
