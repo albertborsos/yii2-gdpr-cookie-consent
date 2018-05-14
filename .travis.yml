@@ -5,7 +5,6 @@ php:
   - 7.0
   - 7.1
   - 7.2
-  - hhvm
 
 # to support hhvm
 dist: trusty
@@ -17,6 +16,11 @@ sudo: false
 cache:
   directories:
     - $HOME/.composer/cache
+
+env:
+  matrix:
+    - COMPOSER_OPTIONS="--prefer-lowest --prefer-stable"
+    - COMPOSER_OPTIONS=""
 
 install:
   - travis_retry composer self-update && composer --version
