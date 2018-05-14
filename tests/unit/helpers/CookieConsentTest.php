@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aborsos
- * Date: 2018. 05. 14.
- * Time: 14:17
- */
 
 class CookieConsentTest extends \Codeception\Test\Unit
 {
