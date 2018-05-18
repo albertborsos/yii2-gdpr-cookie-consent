@@ -57,7 +57,7 @@ class CookieSettingsAction extends Action
 
         Yii::$app->view->registerJs("
             $(document).on('click', '.cc-revoke-custom', function () {
-                document.cookie = 'cookieconsent_status=; Path=".$component->cookiePath."; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                document.cookie = 'cookieconsent_status=; Path=" . $component->cookiePath . "; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             });
         ");
     }
