@@ -30,7 +30,6 @@ return [
         // ...
         'cookieConsent' => [
             'class' => \albertborsos\cookieconsent\Component::class,
-            'complianceType' => \albertborsos\cookieconsent\Component::COMPLIANCE_TYPE_OPT_OUT,
         ],
         // ...
         'i18n' => [
