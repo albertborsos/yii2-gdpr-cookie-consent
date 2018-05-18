@@ -39,9 +39,9 @@ class Component extends \yii\base\Component
 
     const CATEGORIES = [
         self::CATEGORY_SESSION,
-        self::CATEGORY_ADS,
         self::CATEGORY_USAGE_HELPER,
         self::CATEGORY_PERFORMANCE,
+        self::CATEGORY_ADS,
         self::CATEGORY_BEHAVIOR,
     ];
 

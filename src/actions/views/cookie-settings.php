@@ -1,6 +1,7 @@
 <?php
 /** @var $this \yii\web\View */
 /** @var $form \albertborsos\cookieconsent\domains\forms\CookieSettingsForm */
+/** @var $categories array */
 ?>
 <?php $form = \yii\bootstrap\ActiveForm::begin([
     'id' => 'cookie-settings',
@@ -18,7 +19,7 @@
         ],
     ],
 ]) ?>
-<?php foreach (Yii::$app->cookieConsent->getCategories() as $category): ?>
+<?php foreach ($categories as $category): ?>
     <?= $form->field($model, 'options[' . $category . ']')
         ->widget(\dosamigos\switchinput\SwitchBox::class, [
             'model' => $model,
