@@ -85,7 +85,7 @@ class Component extends \yii\base\Component
     /**
      * @var string compliance type
      */
-    public $complianceType;
+    public $complianceType = self::COMPLIANCE_TYPE_OPT_IN;
 
     /**
      * Configure to show or hide cookie policy floating revoke button after accept or decline cookie consent.
