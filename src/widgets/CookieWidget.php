@@ -119,6 +119,7 @@ class CookieWidget extends Widget
         $this->loadComponent();
         $this->initializeTranslations();
         $this->preparePluginOptions();
+        $this->fixOptInDismissButtonText();
         $this->registerAssets();
     }
 
@@ -183,15 +184,15 @@ class CookieWidget extends Widget
         }
 
         if (!empty($this->dismissButtonText)) {
-            $this->pluginOptions['content']['dismiss'] = $this->dismissButtonText;
+            $this->pluginOptions['content']['dismiss'] = $this->dismissButtonText?: Yii::t('cookieconsent/widget', 'dismiss');
         }
 
         if (!empty($this->denyButtonText)) {
-            $this->pluginOptions['content']['deny'] = $this->denyButtonText;
+            $this->pluginOptions['content']['deny'] = $this->denyButtonText ?: Yii::t('cookieconsent/widget', 'deny');
         }
 
         if (!empty($this->allowButtonText)) {
-            $this->pluginOptions['content']['allow'] = $this->allowButtonText;
+            $this->pluginOptions['content']['allow'] = $this->allowButtonText ?: Yii::t('cookieconsent/widget', 'allow');
         }
 
         if (!empty($this->policyLinkText)) {
@@ -247,5 +248,14 @@ class CookieWidget extends Widget
                 window.location.reload();
             }
         }");
+    }
+
+    private function fixOptInDismissButtonText()
+    {
+        if ($this->getComponent()->complianceType !== Component::COMPLIANCE_TYPE_OPT_IN) {
+            return;
+        }
+
+        $this->pluginOptions['content']['dismiss'] = Yii::t('cookieconsent/widget', 'deny');
     }
 }

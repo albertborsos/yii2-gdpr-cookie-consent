@@ -88,6 +88,13 @@ class Component extends \yii\base\Component
     public $complianceType;
 
     /**
+     * Configure to show or hide cookie policy floating revoke button after accept or decline cookie consent.
+     *
+     * @var bool
+     */
+    public $showCookiePolicyFloatingTab = true;
+
+    /**
      * Expiration time of the cookie categories settings.
      * Cookie settings will be stored with the following expiration time: time() + $expirationTime
      *
@@ -144,6 +151,7 @@ class Component extends \yii\base\Component
         $this->calculateDefaultCookieValue();
         $this->normalizeExtraCategories();
         $this->normalizeDisabledCategories();
+        $this->hideCookiePolicyFloatingTab();
         parent::init();
     }
 
@@ -348,5 +356,14 @@ class Component extends \yii\base\Component
     public function isRequiredToAllow($category)
     {
         return in_array($category, self::CATEGORIES_REQUIRED);
+    }
+
+    private function hideCookiePolicyFloatingTab()
+    {
+        if ($this->showCookiePolicyFloatingTab) {
+            return;
+        }
+
+        \Yii::$app->view->registerCss('.cc-revoke{display:none;}', ['type' => 'text/css']);
     }
 }

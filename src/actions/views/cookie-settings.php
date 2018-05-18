@@ -39,6 +39,9 @@
 <div class="row">
     <div class="col-xs-offset-3">
         <?= \yii\helpers\Html::submitButton(Yii::t('cookieconsent/widget', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= \yii\helpers\Html::a(Yii::t('cookieconsent/widget', 'Reset to default'), \yii\helpers\Url::to(['/cookie-beallitasok'], true), [
+                'class' => 'btn btn-default cc-revoke-custom',
+        ]) ?>
     </div>
 </div>
 <?php \yii\bootstrap\ActiveForm::end() ?>

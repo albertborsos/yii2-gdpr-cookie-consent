@@ -18,10 +18,11 @@
  */
 return [
     'Save' => 'Mentés',
+    'Reset to default' => 'Alapbeállítások visszaállítása',
     'form.error.session-is-required' => 'Munkamenet sütiket kötelező engedélyezni!',
-    'form.error.usage-helper-is-required' => 'Használatot elősegítő sütiket kötelező engedélyezni, hogy el tudjuk tárolni ezeket a beállításokat!',
+    'form.error.usagehelper-is-required' => 'Használatot elősegítő sütiket kötelező engedélyezni, hogy el tudjuk tárolni ezeket a beállításokat!',
     'header' => 'Ez az oldal cookie-kat használ!',
-    'allow' => 'Cookie-k engedélyezése',
+    'allow' => 'Engedélyezem',
     'deny' => 'Elutasítom',
     'dismiss' => 'Elfogadom!',
     'link' => 'Tudjon meg többet...',

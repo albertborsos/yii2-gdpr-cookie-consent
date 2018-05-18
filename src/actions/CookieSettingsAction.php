@@ -21,6 +21,8 @@ class CookieSettingsAction extends Action
      */
     public function run()
     {
+        $this->registerAssets();
+
         $form = new CookieSettingsForm();
 
         if (Yii::$app->request->isAjax && $form->load(Yii::$app->request->post())) {
@@ -43,5 +45,20 @@ class CookieSettingsAction extends Action
             'model' => $form,
             'categories' => $component->getCategories(),
         ]);
+    }
+
+    /**
+     * @throws \yii\base\InvalidConfigException
+     */
+    private function registerAssets()
+    {
+        /** @var Component $component */
+        $component = Instance::ensure('cookieConsent', Component::class);
+
+        Yii::$app->view->registerJs("
+            $(document).on('click', '.cc-revoke-custom', function () {
+                document.cookie = 'cookieconsent_status=; Path=".$component->cookiePath."; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            });
+        ");
     }
 }
