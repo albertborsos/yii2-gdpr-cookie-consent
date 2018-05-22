@@ -35,9 +35,10 @@
         ])
         ->label($model->getAttributeLabel($category), ['class' => 'control-label col-xs-3 text-right'])
         ->hint($model->getAttributeHint($category)) ?>
+    <hr>
 <?php endforeach; ?>
 <div class="row">
-    <div class="col-xs-offset-3">
+    <div class="col-xs-offset-3 col-xs-9">
         <?= \yii\helpers\Html::submitButton(Yii::t('cookieconsent/widget', 'Save'), ['class' => 'btn btn-success']) ?>
         <?= \yii\helpers\Html::a(Yii::t('cookieconsent/widget', 'Reset to default'), \yii\helpers\Url::to(['/cookie-beallitasok'], true), [
             'class' => 'btn btn-default cc-revoke-custom',
