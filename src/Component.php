@@ -7,6 +7,7 @@ use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
+use yii\helpers\Url;
 
 class Component extends \yii\base\Component
 {
@@ -129,6 +130,38 @@ class Component extends \yii\base\Component
     public $cookieHttpOnly = false;
 
     /**
+     * Link to your cookie setting URL.
+     *
+     * @var string|array
+     */
+    public $urlSettings;
+
+    /**
+     * Link to your privacy policy/data protection URL.
+     *
+     * @var string|array
+     */
+    public $urlPrivacyPolicy;
+
+    /**
+     * List of the uploaded documents for `PrivacyPolicyAction`.
+     * The list items should be in the following structure:
+     *
+     * ```
+     *  'documents' => [
+     *      ['name' => 'Privacy Policy', 'url' => ['/uploads/privacy-policy-2018-05-25.pdf']],
+     *      ['name' => 'Terms And Conditions', 'url' => ['/uploads/terms-and-conditions-2018-05-25.pdf']],
+     *  ],
+     * ```
+     *
+     * `name` will be a translate key in `cookieconsent/policy`
+     * `url` will be converted to an URL with `yii\helpers\Url::to()` method
+     *
+     * @var array
+     */
+    public $documents = [];
+
+    /**
      * @var boolean calculated by the compliance type
      */
     private $_defaultCookieValue;
@@ -148,10 +181,12 @@ class Component extends \yii\base\Component
         }
 
         $this->setStatus();
+        $this->generateUrls();
         $this->calculateDefaultCookieValue();
         $this->normalizeExtraCategories();
         $this->normalizeDisabledCategories();
         $this->hideCookiePolicyFloatingTab();
+        $this->checkDocuments();
         parent::init();
     }
 
@@ -191,6 +226,18 @@ class Component extends \yii\base\Component
             $this->setStatus();
         }
         return $this->_status;
+    }
+
+    /**
+     * @throws InvalidConfigException
+     */
+    private function checkDocuments()
+    {
+        foreach ($this->documents as $i => $document) {
+            if (!isset($document['name']) || !isset($document['url'])) {
+                throw new InvalidConfigException('Invalid item format in ' . static::class . '::documents');
+            }
+        }
     }
 
     /**
@@ -365,5 +412,11 @@ class Component extends \yii\base\Component
         }
 
         \Yii::$app->view->registerCss('.cc-revoke{display:none;}', ['type' => 'text/css']);
+    }
+
+    private function generateUrls()
+    {
+        $this->urlSettings = Url::to($this->urlSettings, true);
+        $this->urlPrivacyPolicy = Url::to($this->urlPrivacyPolicy, true);
     }
 }
