@@ -6,7 +6,7 @@ class CookieConsentTest extends \Codeception\Test\Unit
     {
         return [
             'facebook'                    => ['facebook', 'social', true],
-            'facebook app'                => ['facebook-app', 'usagehelper', true],
+            'facebook app'                => ['facebook-app', 'usage-helper', true],
             'facebook pixel'              => ['facebook-pixel', 'ads', true],
             'google analytics'            => ['google-analytics', 'statistics', true],
             'google analytics anonym'     => ['google-analytics-anonym', 'usage-helper', true],
@@ -26,7 +26,7 @@ class CookieConsentTest extends \Codeception\Test\Unit
     public function categoryProvider()
     {
         return [
-            'CATEGORY_USAGE_HELPER'        => ['usagehelper', true],
+            'CATEGORY_USAGE_HELPER'        => ['usage-helper', true],
             'CATEGORY_SOCIAL'              => ['social', true],
             'CATEGORY_STATISTICS'          => ['statistics', true],
             'CATEGORY_ADS'                 => ['ads', true],

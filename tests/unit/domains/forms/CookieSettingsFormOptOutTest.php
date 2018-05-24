@@ -15,8 +15,8 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
         return [
             'session is always required - disabled' => ['options.session', 0, 0, 1, 0, 0, 0],
             'session is always required - enabled' => ['options.session', 0, 1, 1, 1, 1, 1],
-            'usagehelper is always required - disabled' => ['options.usagehelper', 1, 0, 0, 0, 0, 0],
-            'usagehelper is always required - enabled' => ['options.usagehelper', 1, 1, 0, 1, 1, 1],
+            'usage-helper is always required - disabled' => ['options.usage-helper', 1, 0, 0, 0, 0, 0],
+            'usage-helper is always required - enabled' => ['options.usage-helper', 1, 1, 0, 1, 1, 1],
         ];
     }
 
@@ -24,7 +24,7 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
     {
         return [
             'everything is enabled' => [1, 1, 1, 1, 1, 1],
-            'everything is disabled but session and usagehelper' => [1, 0, 1, 0, 0, 1],
+            'everything is disabled but session and usage-helper' => [1, 0, 1, 0, 0, 1],
         ];
     }
 
