@@ -6,7 +6,6 @@ use albertborsos\cookieconsent\Component;
 use albertborsos\ddd\models\AbstractDomain;
 use yii\di\Instance;
 use yii\helpers\ArrayHelper;
-use yii\web\Cookie;
 
 class CookieSettingsDomain extends AbstractDomain
 {

@@ -14,6 +14,7 @@ class CookieConsent
     const TYPE_GOOGLE_ANALYTICS        = 'google-analytics';
     const TYPE_GOOGLE_ANALYTICS_ANONYM = 'google-analytics-anonym';
     const TYPE_GOOGLE_TAG_MANAGER      = 'google-tag-manager';
+    const TYPE_GOOGLE_MAPS             = 'google-maps';
 
     const TYPE_HOTJAR = 'hotjar';
 
@@ -25,8 +26,11 @@ class CookieConsent
         Component::CATEGORY_ADS => [
             self::TYPE_FACEBOOK_PIXEL,
         ],
-        Component::CATEGORY_STATISTICS => [
+        Component::CATEGORY_SOCIAL => [
             self::TYPE_FACEBOOK,
+            self::TYPE_GOOGLE_MAPS,
+        ],
+        Component::CATEGORY_STATISTICS => [
             self::TYPE_GOOGLE_ANALYTICS,
             self::TYPE_GOOGLE_TAG_MANAGER,
         ],

@@ -22,7 +22,7 @@ return [
     'deny' => 'Deny',
     'dismiss' => 'Dismiss',
     'form.error.session-is-required' => 'Session category is required!',
-    'form.error.usage-helper-is-required' => 'Usage helper category is required to store this settings.',
+    'form.error.usage-helper-is-required' => 'Usage helper category is required to store these settings.',
     'link' => 'Link',
     'message' => 'Message',
 ];

@@ -22,6 +22,7 @@ return [
     'hint.behavior' => 'Ennek segítségével tudjuk mérni aktivitásod az oldalunkon.',
     'hint.statistics' => 'Ennek segítésével tudjuk mérni az oldal látogatottságát és hirdetéseink teljesítményét.',
     'hint.session' => 'Egy webáruházban ennek segítségével lehet megkülönböztetni a kosaradban lévő termékeidet másokétól. Vagy bejelentkezés után ennek köszönhetően lehet  megkülönböztetni a többi bejelentkezett felhasználótól.',
+    'hint.social' => 'Szociális hálózatok widgetjei által kezelt cookie-k. Ilyen például a Facebook page plugin vagy a Google Maps térkép.',
     'hint.usage-helper' => 'Ilyen süti-ben tároljuk azt, hogy emlékezzen rád az oldal bejelentkezés után is. Illetve ennek az űrlapnak a beállításait is ilyen sütikben tároljuk, ha módosítottál valamit a kapcsolókon.',
     'input.allowed' => 'Be',
     'input.disallowed' => 'Ki',
@@ -29,5 +30,6 @@ return [
     'label.behavior' => 'Böngésző felhasználókat megkülönböztető, azonosító sütik',
     'label.statistics' => 'Statisztikai sütik',
     'label.session' => 'Munkamenet sütik',
+    'label.social' => 'Szociális hálózat sütik',
     'label.usage-helper' => 'Használatot elősegítő sütik',
 ];

@@ -20,6 +20,7 @@ return [
     'flash.message.success' => 'Cookie settings are successfully updated!',
     'hint.ads' => 'Remarketing cookies, like Google AdWords remarketing cookie.',
     'hint.behavior' => 'Cookies to store user related behaviors. Like this setting in this form.',
+    'hint.social' => 'Cookies which are used by social network widgets like Facebook page plugin or Google Maps.',
     'hint.statistics' => 'Cookies which helps us to measure the performance of this site. For example tracking conversions in Google Analytics and Facebook.',
     'hint.session' => 'Session cookies are required to distinguish users on the site.',
     'hint.usage-helper' => 'Cookies to store informations like "Remember me" checkbox on login forms.',
@@ -29,5 +30,6 @@ return [
     'label.behavior' => 'Behavior cookies',
     'label.statistics' => 'Statistic cookies',
     'label.session' => 'Session cookies',
+    'label.social' => 'Social network cookies',
     'label.usage-helper' => 'Usage helper cookies',
 ];

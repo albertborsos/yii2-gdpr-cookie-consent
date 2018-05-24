@@ -13,18 +13,18 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
     public function invalidSettingsProvider()
     {
         return [
-            'session is always required - disabled' => ['options.session', 0, 0, 1, 0, 0],
-            'session is always required - enabled' => ['options.session', 0, 1, 1, 1, 1],
-            'usagehelper is always required - disabled' => ['options.usagehelper', 1, 0, 0, 0, 0],
-            'usagehelper is always required - enabled' => ['options.usagehelper', 1, 1, 0, 1, 1],
+            'session is always required - disabled' => ['options.session', 0, 0, 1, 0, 0, 0],
+            'session is always required - enabled' => ['options.session', 0, 1, 1, 1, 1, 1],
+            'usagehelper is always required - disabled' => ['options.usagehelper', 1, 0, 0, 0, 0, 0],
+            'usagehelper is always required - enabled' => ['options.usagehelper', 1, 1, 0, 1, 1, 1],
         ];
     }
 
     public function validSettingsProvider()
     {
         return [
-            'everything is enabled' => [1, 1, 1, 1, 1],
-            'everything is disabled but session and usagehelper' => [1, 0, 1, 0, 0],
+            'everything is enabled' => [1, 1, 1, 1, 1, 1],
+            'everything is disabled but session and usagehelper' => [1, 0, 1, 0, 0, 1],
         ];
     }
 
@@ -38,7 +38,7 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
      * @param $statistics
      * @param $behavior
      */
-    public function testNotAnsweredInvalid($expectedErrorField, $session, $ads, $usageHelper, $statistics, $behavior)
+    public function testNotAnsweredInvalid($expectedErrorField, $session, $ads, $usageHelper, $statistics, $behavior, $social)
     {
         $this->mockComponent(null);
 
@@ -46,6 +46,7 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
             'options' => [
                 \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
                 \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\Component::CATEGORY_SOCIAL => $social,
                 \albertborsos\cookieconsent\Component::CATEGORY_STATISTICS => $statistics,
                 \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
                 \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
@@ -66,13 +67,14 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
      * @param $statistics
      * @param $behavior
      */
-    public function testAllowedInvalid($expectedErrorField, $session, $ads, $usageHelper, $statistics, $behavior)
+    public function testAllowedInvalid($expectedErrorField, $session, $ads, $usageHelper, $statistics, $behavior, $social)
     {
         $this->mockComponent(\albertborsos\cookieconsent\Component::STATUS_DISMISSED);
         $form = $this->mockForm([
             'options' => [
                 \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
                 \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\Component::CATEGORY_SOCIAL => $social,
                 \albertborsos\cookieconsent\Component::CATEGORY_STATISTICS => $statistics,
                 \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
                 \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
@@ -94,13 +96,14 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
      * @param $statistics
      * @param $behavior
      */
-    public function testDeniedInvalid($expectedErrorField, $session, $ads, $usageHelper, $statistics, $behavior)
+    public function testDeniedInvalid($expectedErrorField, $session, $ads, $usageHelper, $statistics, $behavior, $social)
     {
         $this->mockComponent(\albertborsos\cookieconsent\Component::STATUS_DENIED);
         $form = $this->mockForm([
             'options' => [
                 \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
                 \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\Component::CATEGORY_SOCIAL => $social,
                 \albertborsos\cookieconsent\Component::CATEGORY_STATISTICS => $statistics,
                 \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
                 \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
@@ -121,13 +124,14 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
      * @param $statistics
      * @param $behavior
      */
-    public function testNotAnsweredValid($session, $ads, $usageHelper, $statistics, $behavior)
+    public function testNotAnsweredValid($session, $ads, $usageHelper, $statistics, $behavior, $social)
     {
         $this->mockComponent(null);
         $form = $this->mockForm([
             'options' => [
                 \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
                 \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\Component::CATEGORY_SOCIAL => $social,
                 \albertborsos\cookieconsent\Component::CATEGORY_STATISTICS => $statistics,
                 \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
                 \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
@@ -147,13 +151,14 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
      * @param $statistics
      * @param $behavior
      */
-    public function testAllowedValid($session, $ads, $usageHelper, $statistics, $behavior)
+    public function testAllowedValid($session, $ads, $usageHelper, $statistics, $behavior, $social)
     {
         $this->mockComponent(\albertborsos\cookieconsent\Component::STATUS_DISMISSED);
         $form = $this->mockForm([
             'options' => [
                 \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
                 \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\Component::CATEGORY_SOCIAL => $social,
                 \albertborsos\cookieconsent\Component::CATEGORY_STATISTICS => $statistics,
                 \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
                 \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
@@ -173,13 +178,14 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
      * @param $statistics
      * @param $behavior
      */
-    public function testDeniedValid($session, $ads, $usageHelper, $statistics, $behavior)
+    public function testDeniedValid($session, $ads, $usageHelper, $statistics, $behavior, $social)
     {
         $this->mockComponent(\albertborsos\cookieconsent\Component::STATUS_DENIED);
         $form = $this->mockForm([
             'options' => [
                 \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
                 \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\Component::CATEGORY_SOCIAL => $social,
                 \albertborsos\cookieconsent\Component::CATEGORY_STATISTICS => $statistics,
                 \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
                 \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
