@@ -12,7 +12,6 @@ class CookieConsent
     const TYPE_FACEBOOK_PIXEL = 'facebook-pixel';
 
     const TYPE_GOOGLE_ANALYTICS        = 'google-analytics';
-    const TYPE_GOOGLE_ANALYTICS_ANONYM = 'google-analytics-anonym';
     const TYPE_GOOGLE_TAG_MANAGER      = 'google-tag-manager';
     const TYPE_GOOGLE_MAPS             = 'google-maps';
 
@@ -20,7 +19,6 @@ class CookieConsent
 
     const MAPPING = [
         Component::CATEGORY_USAGE_HELPER => [
-            self::TYPE_GOOGLE_ANALYTICS_ANONYM,
             self::TYPE_FACEBOOK_APP, // facebook app cookies are required if it is in use
         ],
         Component::CATEGORY_ADS => [

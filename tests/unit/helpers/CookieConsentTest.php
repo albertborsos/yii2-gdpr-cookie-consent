@@ -9,7 +9,6 @@ class CookieConsentTest extends \Codeception\Test\Unit
             'facebook app'                => ['facebook-app', 'usage-helper', true],
             'facebook pixel'              => ['facebook-pixel', 'ads', true],
             'google analytics'            => ['google-analytics', 'statistics', true],
-            'google analytics anonym'     => ['google-analytics-anonym', 'usage-helper', true],
             'google tag manager'          => ['google-tag-manager', 'statistics', true],
             'hotjar'                      => ['hotjar', 'behavior', true],
             'google maps'                 => ['google-maps', 'social', true],
