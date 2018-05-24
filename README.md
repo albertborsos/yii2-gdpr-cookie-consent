@@ -30,6 +30,11 @@ return [
         // ...
         'cookieConsent' => [
             'class' => \albertborsos\cookieconsent\Component::class,
+            'urlSettings' => ['/site/cookie-settings'],
+            'urlPrivacyPolicy' => ['/site/privacy-policy'],
+            'documents' => [
+                ['name' => 'Privacy Policy', 'url' => ['/docs/privacy-policy.pdf']],
+            ],
         ],
         // ...
         'i18n' => [
@@ -70,12 +75,15 @@ Add the cookie settings form to any of your controller:
 ```php
 <?php
 
-class DefaultController extends \yii\web\Controller
+namespace app\controllers;
+
+class SiteController extends \yii\web\Controller
 {
     public function actions()
     {
         return [
             'cookie-settings' => \albertborsos\cookieconsent\actions\CookieSettingsAction::class,
+            'privacy-policy' => \albertborsos\cookieconsent\actions\PrivacyPolicyAction::class,
         ];
     }
 }
