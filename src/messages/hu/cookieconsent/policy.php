@@ -17,5 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Privacy Policy' => '',
+    'Privacy Policy' => 'Adatvédelmi nyilatkozatok és tájékoztatót',
+    'description' => 'További információkért és a nálunk kezelt személyes adatival kapcsolatban az alábbi e-mail címen tudja velünk felvenni a kapcsolatot: <a href="mailto:{email}">{email}</a>',
+    'Available documents' => 'Elérhető dokumentumok',
 ];

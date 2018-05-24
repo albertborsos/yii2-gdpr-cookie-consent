@@ -22,6 +22,7 @@ class PrivacyPolicyAction extends Action
 
         return $this->controller->render($this->viewFilePath, [
             'documents' => $component->documents,
+            'email' => $component->email,
         ]);
     }
 }

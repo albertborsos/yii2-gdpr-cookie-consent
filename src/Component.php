@@ -162,6 +162,13 @@ class Component extends \yii\base\Component
     public $documents = [];
 
     /**
+     * Relevant contact e-mail address to show on the privacy policy page.
+     *
+     * @var string email address
+     */
+    public $email;
+
+    /**
      * @var boolean calculated by the compliance type
      */
     private $_defaultCookieValue;

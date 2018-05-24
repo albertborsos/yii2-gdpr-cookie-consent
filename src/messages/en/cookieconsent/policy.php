@@ -18,4 +18,6 @@
  */
 return [
     'Privacy Policy' => '',
+    'Available documents' => '',
+    'description' => 'For further informations about your data handled by us, please contact us through the following email address: <a href="mailto:{email}">{email}</a>.',
 ];
