@@ -7,36 +7,38 @@ use yii\di\Instance;
 
 class CookieConsent
 {
-    const TYPE_FACEBOOK = 'facebook';
-    const TYPE_FACEBOOK_APP = 'facebook-app';
+    const TYPE_FACEBOOK       = 'facebook';
+    const TYPE_FACEBOOK_APP   = 'facebook-app';
     const TYPE_FACEBOOK_PIXEL = 'facebook-pixel';
 
-    const TYPE_GOOGLE_ANALYTICS = 'google-analytics';
-    const TYPE_GOOGLE_TAG_MANAGER = 'google-tag-manager';
+    const TYPE_GOOGLE_ANALYTICS        = 'google-analytics';
+    const TYPE_GOOGLE_ANALYTICS_ANONYM = 'google-analytics-anonym';
+    const TYPE_GOOGLE_TAG_MANAGER      = 'google-tag-manager';
 
-    const TYPES = [
-        self::TYPE_FACEBOOK,
-        self::TYPE_GOOGLE_ANALYTICS,
-        self::TYPE_GOOGLE_TAG_MANAGER,
-    ];
+    const TYPE_HOTJAR = 'hotjar';
 
     const MAPPING = [
+        Component::CATEGORY_USAGE_HELPER => [
+            self::TYPE_GOOGLE_ANALYTICS_ANONYM,
+            self::TYPE_FACEBOOK_APP, // facebook app cookies are required if it is in use
+        ],
         Component::CATEGORY_ADS => [
             self::TYPE_FACEBOOK_PIXEL,
         ],
-        Component::CATEGORY_USAGE_HELPER => [
-            self::TYPE_FACEBOOK_APP, // facebook app cookies are required if it is in use
-        ],
-        Component::CATEGORY_PERFORMANCE => [
+        Component::CATEGORY_STATISTICS => [
             self::TYPE_FACEBOOK,
             self::TYPE_GOOGLE_ANALYTICS,
             self::TYPE_GOOGLE_TAG_MANAGER,
+        ],
+        Component::CATEGORY_BEHAVIOR => [
+            self::TYPE_HOTJAR,
         ],
     ];
 
     /**
      * @param $type
      * @return bool
+     * @throws \yii\base\InvalidConfigException
      */
     public static function isAllowedType($type)
     {
@@ -48,6 +50,7 @@ class CookieConsent
     /**
      * @param $category
      * @return bool
+     * @throws \yii\base\InvalidConfigException
      */
     public static function isAllowedCategory($category)
     {
@@ -58,7 +61,7 @@ class CookieConsent
 
     /**
      * @param $type
-     * @return int|string
+     * @return int|null|string
      */
     private static function getCategoryByType($type)
     {
@@ -67,5 +70,7 @@ class CookieConsent
                 return $category;
             }
         }
+
+        return null;
     }
 }

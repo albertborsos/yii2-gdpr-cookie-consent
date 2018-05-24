@@ -5,15 +5,18 @@ class CookieConsentTest extends \Codeception\Test\Unit
     public function typeProvider()
     {
         return [
-            'facebook'                    => ['facebook', 'performance', true],
+            'facebook'                    => ['facebook', 'statistics', true],
             'facebook app'                => ['facebook-app', 'usagehelper', true],
             'facebook pixel'              => ['facebook-pixel', 'ads', true],
-            'google analytics'            => ['google-analytics', 'performance', true],
-            'google tag manager'          => ['google-tag-manager', 'performance', true],
-            'facebook disabled'           => ['facebook', 'performance', false],
+            'google analytics'            => ['google-analytics', 'statistics', true],
+            'google analytics anonym'     => ['google-analytics-anonym', 'usage-helper', true],
+            'google tag manager'          => ['google-tag-manager', 'statistics', true],
+            'hotjar'                      => ['hotjar', 'behavior', true],
+            'facebook disabled'           => ['facebook', 'statistics', false],
             'facebook app disabled'       => ['facebook-pixel', 'ads', false],
-            'google analytics disabled'   => ['google-analytics', 'performance', false],
-            'google tag manager disabled' => ['google-tag-manager', 'performance', false],
+            'google analytics disabled'   => ['google-analytics', 'statistics', false],
+            'google tag manager disabled' => ['google-tag-manager', 'statistics', false],
+            'hotjar disabled'             => ['hotjar', 'behavior', false],
         ];
     }
 
@@ -21,10 +24,12 @@ class CookieConsentTest extends \Codeception\Test\Unit
     {
         return [
             'CATEGORY_USAGE_HELPER'         => ['usagehelper', true],
+            'CATEGORY_statistics'           => ['statistics', true],
             'CATEGORY_ADS'                  => ['ads', true],
-            'CATEGORY_PERFORMANCE'          => ['performance', true],
-            'CATEGORY_PERFORMANCE disabled' => ['performance', false],
+            'CATEGORY_BEHAVIOR'             => ['behavior', true],
+            'CATEGORY_statistics disabled'  => ['statistics', false],
             'CATEGORY_ADS disabled'         => ['ads', false],
+            'CATEGORY_BEHAVIOR disabled'    => ['behavior', false],
         ];
     }
 
@@ -33,6 +38,7 @@ class CookieConsentTest extends \Codeception\Test\Unit
      *
      * @param $type
      * @param $expected
+     * @throws \yii\base\InvalidConfigException
      */
     public function testIsAllowedType($type, $category, $expected)
     {
@@ -46,6 +52,7 @@ class CookieConsentTest extends \Codeception\Test\Unit
      *
      * @param $category
      * @param $expected
+     * @throws \yii\base\InvalidConfigException
      */
     public function testIsAllowedCategory($category, $expected)
     {

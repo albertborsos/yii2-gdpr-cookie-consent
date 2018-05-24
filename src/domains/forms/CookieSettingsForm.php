@@ -55,10 +55,10 @@ class CookieSettingsForm extends Model implements FormObject
         $extraCategories = ArrayHelper::map($this->getComponent()->extraCategories, 'id', 'label');
         return ArrayHelper::merge([
             Component::CATEGORY_SESSION      => \Yii::t('cookieconsent/form', 'label.session'),
+            Component::CATEGORY_USAGE_HELPER => \Yii::t('cookieconsent/form', 'label.usage-helper'),
+            Component::CATEGORY_STATISTICS   => \Yii::t('cookieconsent/form', 'label.statistics'),
             Component::CATEGORY_ADS          => \Yii::t('cookieconsent/form', 'label.ads'),
             Component::CATEGORY_BEHAVIOR     => \Yii::t('cookieconsent/form', 'label.behavior'),
-            Component::CATEGORY_PERFORMANCE  => \Yii::t('cookieconsent/form', 'label.performance'),
-            Component::CATEGORY_USAGE_HELPER => \Yii::t('cookieconsent/form', 'label.usage-helper'),
         ], $extraCategories);
     }
 
@@ -67,10 +67,10 @@ class CookieSettingsForm extends Model implements FormObject
         $extraCategories = ArrayHelper::map($this->getComponent()->extraCategories, 'id', 'hint');
         return ArrayHelper::merge([
             Component::CATEGORY_SESSION      => \Yii::t('cookieconsent/form', 'hint.session'),
+            Component::CATEGORY_USAGE_HELPER => \Yii::t('cookieconsent/form', 'hint.usage-helper'),
+            Component::CATEGORY_STATISTICS   => \Yii::t('cookieconsent/form', 'hint.statistics'),
             Component::CATEGORY_ADS          => \Yii::t('cookieconsent/form', 'hint.ads'),
             Component::CATEGORY_BEHAVIOR     => \Yii::t('cookieconsent/form', 'hint.behavior'),
-            Component::CATEGORY_PERFORMANCE  => \Yii::t('cookieconsent/form', 'hint.performance'),
-            Component::CATEGORY_USAGE_HELPER => \Yii::t('cookieconsent/form', 'hint.usage-helper'),
         ], $extraCategories);
     }
 

@@ -33,15 +33,15 @@ class Component extends \yii\base\Component
     ];
 
     const CATEGORY_SESSION      = 'session';
-    const CATEGORY_ADS          = 'ads';
     const CATEGORY_USAGE_HELPER = 'usagehelper';
-    const CATEGORY_PERFORMANCE  = 'performance';
+    const CATEGORY_STATISTICS   = 'statistics';
+    const CATEGORY_ADS          = 'ads';
     const CATEGORY_BEHAVIOR     = 'behavior';
 
     const CATEGORIES = [
         self::CATEGORY_SESSION,
         self::CATEGORY_USAGE_HELPER,
-        self::CATEGORY_PERFORMANCE,
+        self::CATEGORY_STATISTICS,
         self::CATEGORY_ADS,
         self::CATEGORY_BEHAVIOR,
     ];
