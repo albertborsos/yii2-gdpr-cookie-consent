@@ -7,7 +7,7 @@
 
 <table class="table table-striped">
     <tr><th><?= Yii::t('cookieconsent/policy', 'Available documents')?></th></tr>
-    <?php if($email): ?>
+    <?php if ($email): ?>
     <p><?= Yii::t('cookieconsent/policy', 'description', ['email' => $email])?></p>
     <?php endif; ?>
     <?php foreach ($documents as $document):?>
