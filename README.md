@@ -35,6 +35,9 @@ return [
             'documents' => [
                 ['name' => 'Privacy Policy', 'url' => ['/docs/privacy-policy.pdf']],
             ],
+            'disabledCategories' => [
+                \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR,
+            ],
         ],
         // ...
         'i18n' => [
