@@ -33,7 +33,7 @@ class CookieSettingsAction extends Action
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             $domain = new CookieSettingsDomain($form);
             if ($domain->process()) {
-                Yii::$app->session->setFlash('success', Yii::t('cookieconsent/form', 'flash.message.success'));
+                Yii::$app->session->addFlash('success', Yii::t('cookieconsent/form', 'flash.message.success'));
                 return $this->controller->refresh();
             }
         }
