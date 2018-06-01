@@ -44,6 +44,7 @@ class CookieSettingsAction extends Action
         return $this->controller->render($this->viewFilePath, [
             'model' => $form,
             'categories' => $component->getCategories(),
+            'resetLink' => $component->urlSettings,
         ]);
     }
 
