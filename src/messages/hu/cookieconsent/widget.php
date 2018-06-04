@@ -20,7 +20,7 @@ return [
     'Save' => 'Mentés',
     'Reset to default' => 'Alapbeállítások visszaállítása',
     'form.error.session-is-required' => 'Munkamenet sütiket kötelező engedélyezni!',
-    'form.error.usagehelper-is-required' => 'Használatot elősegítő sütiket kötelező engedélyezni, hogy el tudjuk tárolni ezeket a beállításokat!',
+    'form.error.usage_helper-is-required' => 'Használatot elősegítő sütiket kötelező engedélyezni, hogy el tudjuk tárolni ezeket a beállításokat!',
     'header' => 'Ez az oldal cookie-kat használ!',
     'allow' => 'Engedélyezem',
     'deny' => 'Elutasítom',

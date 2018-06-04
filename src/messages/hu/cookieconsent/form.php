@@ -23,7 +23,7 @@ return [
     'hint.statistics' => 'Ennek segítésével tudjuk mérni az oldal látogatottsági statisztikáját és hirdetéseink teljesítményét.',
     'hint.session' => 'Egy webáruházban ennek köszönhetően láthatja azt a terméket a kosarában amit választott és nem pedig egy másik felhasználó által összeválogatott termékeket.',
     'hint.social' => 'Közösségi oldalak widgetjei által használt cookie-k. Ilyen például a Facebook Page Plugin, Facebook Comments Widget vagy a Google Maps térkép is.',
-    'hint.usage-helper' => 'Ennek segítségével tároljuk például ennek az űrlapnak a beállításait.',
+    'hint.usage_helper' => 'Ennek segítségével tároljuk például ennek az űrlapnak a beállításait.',
     'input.allowed' => 'Be',
     'input.disallowed' => 'Ki',
     'label.ads' => 'Célzó és Hirdetési sütik',
@@ -31,5 +31,5 @@ return [
     'label.statistics' => 'Statisztikai sütik',
     'label.session' => 'Munkamenet sütik',
     'label.social' => 'Közösségi hálózatok sütijei',
-    'label.usage-helper' => 'Használatot segítő sütik',
+    'label.usage_helper' => 'Használatot segítő sütik',
 ];

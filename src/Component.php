@@ -33,7 +33,7 @@ class Component extends \yii\base\Component
     ];
 
     const CATEGORY_SESSION      = 'session';
-    const CATEGORY_USAGE_HELPER = 'usage-helper';
+    const CATEGORY_USAGE_HELPER = 'usage_helper';
     const CATEGORY_SOCIAL       = 'social';
     const CATEGORY_STATISTICS   = 'statistics';
     const CATEGORY_ADS          = 'ads';

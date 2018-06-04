@@ -23,7 +23,7 @@ return [
     'hint.social' => 'Cookies which are used by social network widgets like Facebook page plugin or Google Maps.',
     'hint.statistics' => 'Cookies which helps us to measure the performance of this site. For example tracking conversions in Google Analytics and Facebook.',
     'hint.session' => 'Session cookies are required to distinguish users on the site.',
-    'hint.usage-helper' => 'Cookies to store informations like "Remember me" checkbox on login forms.',
+    'hint.usage_helper' => 'Cookies to store informations like "Remember me" checkbox on login forms.',
     'input.allowed' => 'On',
     'input.disallowed' => 'Off',
     'label.ads' => 'Ad cookies',
@@ -31,5 +31,5 @@ return [
     'label.statistics' => 'Statistic cookies',
     'label.session' => 'Session cookies',
     'label.social' => 'Social network cookies',
-    'label.usage-helper' => 'Usage helper cookies',
+    'label.usage_helper' => 'Usage helper cookies',
 ];
