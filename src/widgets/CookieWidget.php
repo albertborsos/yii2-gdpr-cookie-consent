@@ -153,8 +153,8 @@ class CookieWidget extends Widget
             $this->pluginOptions['domain'] = $this->getComponent()->cookieDomain;
         }
 
-        if (!isset($this->pluginOptions['secure'])) {
-            $this->pluginOptions['secure'] = $this->getComponent()->cookieSecure;
+        if (!isset($this->pluginOptions['cookie']['secure'])) {
+            $this->pluginOptions['cookie']['secure'] = $this->getComponent()->cookieSecure;
         }
 
         if (!empty($this->position)) {
