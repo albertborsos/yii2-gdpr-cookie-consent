@@ -101,6 +101,7 @@ class CookieWidget extends Widget
     /**
      * This option must be set, otherwise your cookies may not work.
      *
+     * @deprecated since 1.0.4 uses value from component
      * @var string
      */
     public $domain = self::DEFAULT_DOMAIN;
@@ -148,8 +149,12 @@ class CookieWidget extends Widget
 
     private function preparePluginOptions()
     {
-        if (!isset($this->pluginOptions['domain']) && !empty($this->domain)) {
-            $this->pluginOptions['domain'] = trim($this->domain) ?: self::DEFAULT_DOMAIN;
+        if (!isset($this->pluginOptions['domain'])) {
+            $this->pluginOptions['domain'] = $this->getComponent()->cookieDomain;
+        }
+
+        if (!isset($this->pluginOptions['secure'])) {
+            $this->pluginOptions['secure'] = $this->getComponent()->cookieSecure;
         }
 
         if (!empty($this->position)) {

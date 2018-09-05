@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d8ca437b45b27444fe6d38094534dff",
+    "content-hash": "b857144694e4f650978c307ca85f47a6",
     "packages": [
         {
             "name": "2amigos/yii2-switch-widget",
@@ -251,16 +251,16 @@
         },
         {
             "name": "bower-asset/cookieconsent",
-            "version": "3.0.6",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/insites/cookieconsent.git",
-                "reference": "7a493e8996faa691f47c777225ec66095fdd14d6"
+                "reference": "909a314444a2cce880d9b7d8bf2331241a8ac440"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/insites/cookieconsent/zipball/7a493e8996faa691f47c777225ec66095fdd14d6",
-                "reference": "7a493e8996faa691f47c777225ec66095fdd14d6",
+                "url": "https://api.github.com/repos/insites/cookieconsent/zipball/909a314444a2cce880d9b7d8bf2331241a8ac440",
+                "reference": "909a314444a2cce880d9b7d8bf2331241a8ac440",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -286,7 +286,7 @@
                 "cookieconsent",
                 "law"
             ],
-            "time": "2018-02-09T10:44:34+00:00"
+            "time": "2018-07-17T12:01:17+00:00"
         },
         {
             "name": "bower-asset/inputmask",
@@ -2574,6 +2574,7 @@
                 "github",
                 "test"
             ],
+            "abandoned": "php-coveralls/php-coveralls",
             "time": "2017-12-06T23:17:56+00:00"
         },
         {

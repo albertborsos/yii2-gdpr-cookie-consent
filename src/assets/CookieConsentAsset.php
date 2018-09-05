@@ -11,8 +11,7 @@ class CookieConsentAsset extends AssetBundle
      *
      * @var string
      */
-    public $sourcePath = '@vendor/albertborsos/yii2-gdpr-cookie-consent/src/assets/vendor/cookieconsent-fixed/';
-    // public $sourcePath = '@bower/cookieconsent/build/';
+     public $sourcePath = '@bower/cookieconsent/build/';
 
     /**
      * @var array

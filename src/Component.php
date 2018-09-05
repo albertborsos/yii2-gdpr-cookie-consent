@@ -117,7 +117,7 @@ class Component extends \yii\base\Component
      * this value will be passed to `setcookie()` method.
      * @var string
      */
-    public $cookieDomain = '';
+    public $cookieDomain = '/';
 
     /**
      * this value will be passed to `setcookie()` method.
