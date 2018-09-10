@@ -36,7 +36,7 @@ return [
                 ['name' => 'Privacy Policy', 'url' => ['/docs/privacy-policy.pdf']],
             ],
             'disabledCategories' => [
-                \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_BEHAVIOR,
             ],
         ],
         // ...
@@ -98,14 +98,14 @@ Check your relevant widget is allowed by the user or not with the CookieConsent 
 ```php
 <?php
 
-use \albertborsos\cookieconsent\helpers\CookieConsent;
+use \albertborsos\cookieconsent\helpers\CookieHelper;
 use \albertborsos\cookieconsent\Component;
 
-if(CookieConsent::isAllowedType(CookieConsent::TYPE_GOOGLE_ANALYTICS)){
+if(CookieHelper::isAllowedType(CookieHelper::TYPE_GOOGLE_ANALYTICS)){
     // register GA script
 }
 
-if(CookieConsent::isAllowedCategory(Component::CATEGORY_BEHAVIOR)){
+if(CookieHelper::isAllowedCategory(CookieHelper::CATEGORY_BEHAVIOR)){
     // register hotjar script
 }
 
