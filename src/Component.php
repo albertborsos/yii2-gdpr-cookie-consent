@@ -2,6 +2,7 @@
 
 namespace albertborsos\cookieconsent;
 
+use albertborsos\cookieconsent\interfaces\CategoryInterface;
 use albertborsos\cookieconsent\widgets\CookieWidget;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
@@ -9,9 +10,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
 use yii\helpers\Url;
 
-class Component extends \yii\base\Component
+class Component extends \yii\base\Component implements CategoryInterface
 {
-
     const STATUS_DENIED = 'deny';
     const STATUS_DISMISSED = 'dismiss';
     const STATUS_ALLOWED = 'allow';
@@ -30,27 +30,6 @@ class Component extends \yii\base\Component
         self::COMPLIANCE_TYPE_INFO,
         self::COMPLIANCE_TYPE_OPT_IN,
         self::COMPLIANCE_TYPE_OPT_OUT,
-    ];
-
-    const CATEGORY_SESSION      = 'session';
-    const CATEGORY_USAGE_HELPER = 'usage_helper';
-    const CATEGORY_SOCIAL       = 'social';
-    const CATEGORY_STATISTICS   = 'statistics';
-    const CATEGORY_ADS          = 'ads';
-    const CATEGORY_BEHAVIOR     = 'behavior';
-
-    const CATEGORIES = [
-        self::CATEGORY_SESSION,
-        self::CATEGORY_USAGE_HELPER,
-        self::CATEGORY_SOCIAL,
-        self::CATEGORY_STATISTICS,
-        self::CATEGORY_ADS,
-        self::CATEGORY_BEHAVIOR,
-    ];
-
-    const CATEGORIES_REQUIRED = [
-        self::CATEGORY_SESSION,
-        self::CATEGORY_USAGE_HELPER,
     ];
 
     const COOKIE_OPTION_PREFIX = 'cookieconsent_option_';
@@ -77,7 +56,7 @@ class Component extends \yii\base\Component
      *
      * ```
      * 'disabledCategories' => [
-     *     \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR,
+     *     \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_BEHAVIOR,
      * ],
      * ```
      *

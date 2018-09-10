@@ -44,12 +44,12 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
 
         $form = $this->mockForm([
             'options' => [
-                \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
-                \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
-                \albertborsos\cookieconsent\Component::CATEGORY_SOCIAL => $social,
-                \albertborsos\cookieconsent\Component::CATEGORY_STATISTICS => $statistics,
-                \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
-                \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_SESSION => $session,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_SOCIAL => $social,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_STATISTICS => $statistics,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_ADS => $ads,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_BEHAVIOR => $behavior,
             ],
         ]);
 
@@ -72,12 +72,12 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
         $this->mockComponent(\albertborsos\cookieconsent\Component::STATUS_DISMISSED);
         $form = $this->mockForm([
             'options' => [
-                \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
-                \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
-                \albertborsos\cookieconsent\Component::CATEGORY_SOCIAL => $social,
-                \albertborsos\cookieconsent\Component::CATEGORY_STATISTICS => $statistics,
-                \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
-                \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_SESSION => $session,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_SOCIAL => $social,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_STATISTICS => $statistics,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_ADS => $ads,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_BEHAVIOR => $behavior,
             ],
         ]);
 
@@ -101,12 +101,12 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
         $this->mockComponent(\albertborsos\cookieconsent\Component::STATUS_DENIED);
         $form = $this->mockForm([
             'options' => [
-                \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
-                \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
-                \albertborsos\cookieconsent\Component::CATEGORY_SOCIAL => $social,
-                \albertborsos\cookieconsent\Component::CATEGORY_STATISTICS => $statistics,
-                \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
-                \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_SESSION => $session,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_SOCIAL => $social,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_STATISTICS => $statistics,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_ADS => $ads,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_BEHAVIOR => $behavior,
             ],
         ]);
 
@@ -129,12 +129,12 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
         $this->mockComponent(null);
         $form = $this->mockForm([
             'options' => [
-                \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
-                \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
-                \albertborsos\cookieconsent\Component::CATEGORY_SOCIAL => $social,
-                \albertborsos\cookieconsent\Component::CATEGORY_STATISTICS => $statistics,
-                \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
-                \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_SESSION => $session,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_SOCIAL => $social,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_STATISTICS => $statistics,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_ADS => $ads,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_BEHAVIOR => $behavior,
             ],
         ]);
 
@@ -156,12 +156,12 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
         $this->mockComponent(\albertborsos\cookieconsent\Component::STATUS_DISMISSED);
         $form = $this->mockForm([
             'options' => [
-                \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
-                \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
-                \albertborsos\cookieconsent\Component::CATEGORY_SOCIAL => $social,
-                \albertborsos\cookieconsent\Component::CATEGORY_STATISTICS => $statistics,
-                \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
-                \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_SESSION => $session,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_SOCIAL => $social,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_STATISTICS => $statistics,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_ADS => $ads,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_BEHAVIOR => $behavior,
             ],
         ]);
 
@@ -183,12 +183,12 @@ class CookieSettingsFormOptOutTest extends \albertborsos\ddd\tests\support\base\
         $this->mockComponent(\albertborsos\cookieconsent\Component::STATUS_DENIED);
         $form = $this->mockForm([
             'options' => [
-                \albertborsos\cookieconsent\Component::CATEGORY_SESSION => $session,
-                \albertborsos\cookieconsent\Component::CATEGORY_USAGE_HELPER => $usageHelper,
-                \albertborsos\cookieconsent\Component::CATEGORY_SOCIAL => $social,
-                \albertborsos\cookieconsent\Component::CATEGORY_STATISTICS => $statistics,
-                \albertborsos\cookieconsent\Component::CATEGORY_ADS => $ads,
-                \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR => $behavior,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_SESSION => $session,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_USAGE_HELPER => $usageHelper,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_SOCIAL => $social,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_STATISTICS => $statistics,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_ADS => $ads,
+                \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_BEHAVIOR => $behavior,
             ],
         ]);
 
