@@ -60,9 +60,9 @@ class CookieSettingsAction extends Action
             $(document).on('click', '.cc-revoke-custom', function () {
                 var cookieNames = " . \yii\helpers\Json::encode($component->getCategories()) . ";
                 $.each(cookieNames, function(){
-                    document.cookie = 'cookieconsent_option_' + this + '=; Domain=" . $component->cookieDomain . "; Path=" . $component->cookiePath . "; Secure=" . $component->cookieSecure . "; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                    document.cookie = 'cookieconsent_option_' + this + '=; Domain=" . $component->cookieDomain . '; Path=' . $component->cookiePath . '; Secure=' . $component->cookieSecure . "; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                 });
-                document.cookie = 'cookieconsent_status=; Domain=" . $component->cookieDomain . "; Path=" . $component->cookiePath . "; Secure=" . $component->cookieSecure . "; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                document.cookie = 'cookieconsent_status=; Domain=" . $component->cookieDomain . '; Path=' . $component->cookiePath . '; Secure=' . $component->cookieSecure . "; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             });
         ");
     }
