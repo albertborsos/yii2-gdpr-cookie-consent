@@ -42,7 +42,7 @@ class CookieHelper implements CategoryInterface, TypeInterface
     {
         /** @var Component $component */
         $component = Instance::ensure('cookieConsent', Component::class);
-        return $component->isAllowed(self::getCategoryByType($type));
+        return $component->isAllowed(static::getCategoryByType($type));
     }
 
     /**
