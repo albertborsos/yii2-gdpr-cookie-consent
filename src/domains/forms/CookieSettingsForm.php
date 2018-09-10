@@ -3,6 +3,7 @@
 namespace albertborsos\cookieconsent\domains\forms;
 
 use albertborsos\cookieconsent\Component;
+use albertborsos\cookieconsent\helpers\CookieHelper;
 use albertborsos\ddd\interfaces\FormObject;
 use yii\base\Model;
 use yii\di\Instance;
@@ -46,8 +47,8 @@ class CookieSettingsForm extends Model implements FormObject
     {
         return [
             [['options'], 'each', 'rule' => ['boolean']],
-            [['options'], 'optionIsRequired', 'params' => ['category' => Component::CATEGORY_SESSION]],
-            [['options'], 'optionIsRequired', 'params' => ['category' => Component::CATEGORY_USAGE_HELPER]],
+            [['options'], 'optionIsRequired', 'params' => ['category' => CookieHelper::CATEGORY_SESSION]],
+            [['options'], 'optionIsRequired', 'params' => ['category' => CookieHelper::CATEGORY_USAGE_HELPER]],
         ];
     }
 
@@ -55,12 +56,12 @@ class CookieSettingsForm extends Model implements FormObject
     {
         $extraCategories = ArrayHelper::map($this->getComponent()->extraCategories, 'id', 'label');
         return ArrayHelper::merge([
-            Component::CATEGORY_SESSION      => \Yii::t('cookieconsent/form', 'label.session'),
-            Component::CATEGORY_USAGE_HELPER => \Yii::t('cookieconsent/form', 'label.usage_helper'),
-            Component::CATEGORY_SOCIAL       => \Yii::t('cookieconsent/form', 'label.social'),
-            Component::CATEGORY_STATISTICS   => \Yii::t('cookieconsent/form', 'label.statistics'),
-            Component::CATEGORY_ADS          => \Yii::t('cookieconsent/form', 'label.ads'),
-            Component::CATEGORY_BEHAVIOR     => \Yii::t('cookieconsent/form', 'label.behavior'),
+            CookieHelper::CATEGORY_SESSION      => \Yii::t('cookieconsent/form', 'label.session'),
+            CookieHelper::CATEGORY_USAGE_HELPER => \Yii::t('cookieconsent/form', 'label.usage_helper'),
+            CookieHelper::CATEGORY_SOCIAL       => \Yii::t('cookieconsent/form', 'label.social'),
+            CookieHelper::CATEGORY_STATISTICS   => \Yii::t('cookieconsent/form', 'label.statistics'),
+            CookieHelper::CATEGORY_ADS          => \Yii::t('cookieconsent/form', 'label.ads'),
+            CookieHelper::CATEGORY_BEHAVIOR     => \Yii::t('cookieconsent/form', 'label.behavior'),
         ], $extraCategories);
     }
 
@@ -68,12 +69,12 @@ class CookieSettingsForm extends Model implements FormObject
     {
         $extraCategories = ArrayHelper::map($this->getComponent()->extraCategories, 'id', 'hint');
         return ArrayHelper::merge([
-            Component::CATEGORY_SESSION      => \Yii::t('cookieconsent/form', 'hint.session'),
-            Component::CATEGORY_USAGE_HELPER => \Yii::t('cookieconsent/form', 'hint.usage_helper'),
-            Component::CATEGORY_SOCIAL       => \Yii::t('cookieconsent/form', 'hint.social'),
-            Component::CATEGORY_STATISTICS   => \Yii::t('cookieconsent/form', 'hint.statistics'),
-            Component::CATEGORY_ADS          => \Yii::t('cookieconsent/form', 'hint.ads'),
-            Component::CATEGORY_BEHAVIOR     => \Yii::t('cookieconsent/form', 'hint.behavior'),
+            CookieHelper::CATEGORY_SESSION      => \Yii::t('cookieconsent/form', 'hint.session'),
+            CookieHelper::CATEGORY_USAGE_HELPER => \Yii::t('cookieconsent/form', 'hint.usage_helper'),
+            CookieHelper::CATEGORY_SOCIAL       => \Yii::t('cookieconsent/form', 'hint.social'),
+            CookieHelper::CATEGORY_STATISTICS   => \Yii::t('cookieconsent/form', 'hint.statistics'),
+            CookieHelper::CATEGORY_ADS          => \Yii::t('cookieconsent/form', 'hint.ads'),
+            CookieHelper::CATEGORY_BEHAVIOR     => \Yii::t('cookieconsent/form', 'hint.behavior'),
         ], $extraCategories);
     }
 

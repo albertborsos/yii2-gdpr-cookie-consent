@@ -56,7 +56,7 @@ class Component extends \yii\base\Component implements CategoryInterface
      *
      * ```
      * 'disabledCategories' => [
-     *     \albertborsos\cookieconsent\Component::CATEGORY_BEHAVIOR,
+     *     \albertborsos\cookieconsent\helpers\CookieHelper::CATEGORY_BEHAVIOR,
      * ],
      * ```
      *
