@@ -34,7 +34,7 @@ class CookieWidgetTest extends \Codeception\Test\Unit
         $expectedPluginOptions = array_merge([
             'position' => 'bottom',
             'static' => false,
-            'domain' => '/',
+            'domain' => '',
             'palette' => [
                 'popup' => [
                     'background' => '#000',

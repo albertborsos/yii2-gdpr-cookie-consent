@@ -11,7 +11,7 @@ class CookieConsentAsset extends AssetBundle
      *
      * @var string
      */
-     public $sourcePath = '@bower/cookieconsent/build/';
+    public $sourcePath = '@bower/cookieconsent/build/';
 
     /**
      * @var array

@@ -240,7 +240,7 @@ class CookieWidget extends Widget
         return new \yii\web\JsExpression('function(){
             var cookieNames = ' . \yii\helpers\Json::encode($this->getComponent()->getCategories()) . ";
             $.each(cookieNames, function(){
-                document.cookie = 'cookieconsent_option_' + this + '=; Domain=" . $this->getComponent()->cookieDomain . "; Path=" . $this->getComponent()->cookiePath . "; Secure=" . $this->getComponent()->cookieSecure . "; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                document.cookie = 'cookieconsent_option_' + this + '=; Domain=" . $this->getComponent()->cookieDomain . '; Path=' . $this->getComponent()->cookiePath . '; Secure=' . $this->getComponent()->cookieSecure . "; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             });
             var currentUrl = window.location.href;
             var policyUrl = '" . Url::to($this->policyLink, true) . "';
