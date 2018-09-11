@@ -404,6 +404,10 @@ class Component extends \yii\base\Component implements CategoryInterface
 
     private function generateUrls()
     {
+        if (!\Yii::$app instanceof \yii\web\Application) {
+            return;
+        }
+
         $this->urlSettings = Url::to($this->urlSettings, true);
         $this->urlPrivacyPolicy = Url::to($this->urlPrivacyPolicy, true);
     }
