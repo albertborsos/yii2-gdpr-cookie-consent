@@ -4,6 +4,7 @@ namespace albertborsos\cookieconsent\widgets;
 
 use albertborsos\cookieconsent\assets\CookieConsentAsset;
 use albertborsos\cookieconsent\Component;
+use albertborsos\cookieconsent\interfaces\CookieComponentInterface;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;
@@ -232,7 +233,9 @@ class CookieWidget extends Widget
 
     private function loadComponent()
     {
-        $this->_component = Instance::ensure('cookieConsent', Component::class);
+        /** @var CookieComponentInterface $component */
+        $component = Instance::ensure('cookieConsent', CookieComponentInterface::class);
+        $this->_component = $component->getComponent();
     }
 
     private function getRemoveCookieJsExpression()
