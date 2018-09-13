@@ -3,6 +3,8 @@
 namespace albertborsos\cookieconsent\domains;
 
 use albertborsos\cookieconsent\Component;
+use albertborsos\cookieconsent\helpers\CookieHelper;
+use albertborsos\cookieconsent\interfaces\CookieComponentInterface;
 use albertborsos\ddd\models\AbstractDomain;
 use yii\di\Instance;
 use yii\helpers\ArrayHelper;
@@ -28,7 +30,8 @@ class CookieSettingsDomain extends AbstractDomain
     private function storeSettingsInCookies()
     {
         /** @var Component $component */
-        $component = Instance::ensure('cookieConsent', Component::class);
+        $component = CookieHelper::getComponent();
+
         $expireAt = time() + $component->cookieExpire;
         foreach ($this->getForm()->options as $category => $newValue) {
             $name = Component::COOKIE_OPTION_PREFIX . $category;

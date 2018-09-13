@@ -5,6 +5,8 @@ namespace albertborsos\cookieconsent\actions;
 use albertborsos\cookieconsent\Component;
 use albertborsos\cookieconsent\domains\CookieSettingsDomain;
 use albertborsos\cookieconsent\domains\forms\CookieSettingsForm;
+use albertborsos\cookieconsent\helpers\CookieHelper;
+use albertborsos\cookieconsent\interfaces\CookieComponentInterface;
 use Yii;
 use yii\base\Action;
 use yii\di\Instance;
@@ -39,7 +41,7 @@ class CookieSettingsAction extends Action
         }
 
         /** @var Component $component */
-        $component = Instance::ensure('cookieConsent', Component::class);
+        $component = CookieHelper::getComponent();
 
         return $this->controller->render($this->viewFilePath, [
             'model' => $form,
@@ -54,7 +56,7 @@ class CookieSettingsAction extends Action
     private function registerAssets()
     {
         /** @var Component $component */
-        $component = Instance::ensure('cookieConsent', Component::class);
+        $component = CookieHelper::getComponent();
 
         Yii::$app->view->registerJs("
             $(document).on('click', '.cc-revoke-custom', function () {

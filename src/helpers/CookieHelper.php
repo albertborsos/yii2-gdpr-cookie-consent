@@ -41,9 +41,7 @@ class CookieHelper implements CategoryInterface, TypeInterface
      */
     public static function isAllowedType($type)
     {
-        /** @var Component $component */
-        $component = Instance::ensure('cookieConsent', CookieComponentInterface::class);
-        return $component->isAllowedCategory(static::getCategoryByType($type));
+        return static::getComponent()->isAllowedCategory(static::getCategoryByType($type));
     }
 
     /**
@@ -53,9 +51,7 @@ class CookieHelper implements CategoryInterface, TypeInterface
      */
     public static function isAllowedCategory($category)
     {
-        /** @var Component $component */
-        $component = Instance::ensure('cookieConsent', CookieComponentInterface::class);
-        return $component->isAllowedCategory($category);
+        return static::getComponent()->isAllowedCategory($category);
     }
 
     /**
@@ -71,5 +67,17 @@ class CookieHelper implements CategoryInterface, TypeInterface
         }
 
         return null;
+    }
+
+    /**
+     * @return CookieComponentInterface
+     * @throws \yii\base\InvalidConfigException
+     */
+    public static function getComponent()
+    {
+        /** @var CookieComponentInterface $component */
+        $component = Instance::ensure('cookieConsent', CookieComponentInterface::class);
+
+        return $component->getComponent();
     }
 }

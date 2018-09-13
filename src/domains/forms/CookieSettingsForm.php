@@ -4,6 +4,7 @@ namespace albertborsos\cookieconsent\domains\forms;
 
 use albertborsos\cookieconsent\Component;
 use albertborsos\cookieconsent\helpers\CookieHelper;
+use albertborsos\cookieconsent\interfaces\CookieComponentInterface;
 use albertborsos\ddd\interfaces\FormObject;
 use yii\base\Model;
 use yii\di\Instance;
@@ -32,7 +33,7 @@ class CookieSettingsForm extends Model implements FormObject
     public function __construct(array $config = [])
     {
         /** @var Component $component */
-        $component = Instance::ensure('cookieConsent', Component::class);
+        $component = Instance::ensure('cookieConsent', CookieComponentInterface::class);
         $this->setComponent($component);
         parent::__construct($config);
     }
@@ -103,8 +104,8 @@ class CookieSettingsForm extends Model implements FormObject
         return $this->_component;
     }
 
-    private function setComponent(Component $component)
+    private function setComponent(CookieComponentInterface $component)
     {
-        $this->_component = $component;
+        $this->_component = $component->getComponent();
     }
 }
