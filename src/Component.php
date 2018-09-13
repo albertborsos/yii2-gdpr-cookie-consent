@@ -2,7 +2,9 @@
 
 namespace albertborsos\cookieconsent;
 
+use albertborsos\cookieconsent\helpers\CookieHelper;
 use albertborsos\cookieconsent\interfaces\CategoryInterface;
+use albertborsos\cookieconsent\interfaces\CookieComponentInterface;
 use albertborsos\cookieconsent\widgets\CookieWidget;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
@@ -10,7 +12,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
 use yii\helpers\Url;
 
-class Component extends \yii\base\Component implements CategoryInterface
+class Component extends \yii\base\Component implements CategoryInterface, CookieComponentInterface
 {
     const STATUS_DENIED = 'deny';
     const STATUS_DISMISSED = 'dismiss';
@@ -179,6 +181,14 @@ class Component extends \yii\base\Component implements CategoryInterface
     }
 
     /**
+     * @return $this
+     */
+    public function getComponent()
+    {
+        return $this;
+    }
+
+    /**
      * @param array $config
      * @throws \Exception
      */
@@ -302,10 +312,7 @@ class Component extends \yii\base\Component implements CategoryInterface
         }
 
         if ($category) {
-            if ($this->isRequiredToAllow($category)) {
-                return true;
-            }
-            return ArrayHelper::getValue($_COOKIE, self::COOKIE_OPTION_PREFIX . $category, $this->getDefaultCookieValue());
+            return $this->isAllowedCategory($category);
         }
 
         // global status
@@ -320,6 +327,36 @@ class Component extends \yii\base\Component implements CategoryInterface
         }
 
         return false;
+    }
+
+    /**
+     * @param null $category
+     * @return bool
+     */
+    public function isAllowedCategory($category)
+    {
+        if (!\Yii::$app instanceof \yii\web\Application) {
+            return false;
+        }
+
+        if ($this->isRequiredToAllow($category)) {
+            return true;
+        }
+        return ArrayHelper::getValue($_COOKIE, self::COOKIE_OPTION_PREFIX . $category, $this->getDefaultCookieValue());
+    }
+
+    /**
+     * @param null $type
+     * @return bool
+     * @throws InvalidConfigException
+     */
+    public function isAllowedType($type)
+    {
+        if (!\Yii::$app instanceof \yii\web\Application) {
+            return false;
+        }
+
+        return CookieHelper::isAllowedType($type);
     }
 
     /**

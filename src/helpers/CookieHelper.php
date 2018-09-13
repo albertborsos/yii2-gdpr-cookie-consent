@@ -4,6 +4,7 @@ namespace albertborsos\cookieconsent\helpers;
 
 use albertborsos\cookieconsent\Component;
 use albertborsos\cookieconsent\interfaces\CategoryInterface;
+use albertborsos\cookieconsent\interfaces\CookieComponentInterface;
 use albertborsos\cookieconsent\interfaces\TypeInterface;
 use yii\di\Instance;
 
@@ -41,8 +42,8 @@ class CookieHelper implements CategoryInterface, TypeInterface
     public static function isAllowedType($type)
     {
         /** @var Component $component */
-        $component = Instance::ensure('cookieConsent', Component::class);
-        return $component->isAllowed(static::getCategoryByType($type));
+        $component = Instance::ensure('cookieConsent', CookieComponentInterface::class);
+        return $component->isAllowedCategory(static::getCategoryByType($type));
     }
 
     /**
@@ -53,8 +54,8 @@ class CookieHelper implements CategoryInterface, TypeInterface
     public static function isAllowedCategory($category)
     {
         /** @var Component $component */
-        $component = Instance::ensure('cookieConsent', Component::class);
-        return $component->isAllowed($category);
+        $component = Instance::ensure('cookieConsent', CookieComponentInterface::class);
+        return $component->isAllowedCategory($category);
     }
 
     /**
