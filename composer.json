@@ -15,7 +15,7 @@
         "yiisoft/yii2": "~2.0.0",
         "bower-asset/cookieconsent": "~3.1",
         "2amigos/yii2-switch-widget": "^1.0",
-        "albertborsos/yii2-ddd": "^0.2.0"
+        "albertborsos/yii2-ddd": "~0.2"
     },
     "require-dev": {
         "satooshi/php-coveralls": "~1.0",
