@@ -110,6 +110,7 @@ class Component extends \yii\base\Component implements CategoryInterface, Cookie
     /**
      * this value will be passed to `setcookie()` method.
      * @var string
+     * @deprecated since `1.2.4` because if it has a `true` value then CookieConsent library cannot manage the cookies from the frontend it they are set via form submission
      */
     public $cookieHttpOnly = false;
 

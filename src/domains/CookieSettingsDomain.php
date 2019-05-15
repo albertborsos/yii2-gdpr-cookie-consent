@@ -38,9 +38,9 @@ class CookieSettingsDomain extends AbstractDomain
             $currentValue = ArrayHelper::getValue($_COOKIE, $name);
             if ($currentValue !== $newValue) {
                 unset($_COOKIE[$name]);
-                setcookie($name, $newValue, $expireAt, $component->cookiePath, $component->cookieDomain, $component->cookieSecure, $component->cookieHttpOnly);
+                setcookie($name, $newValue, $expireAt, $component->cookiePath, $component->cookieDomain, $component->cookieSecure);
             }
         }
-        setcookie(Component::COOKIECONSENT_STATUS, $component->getNotAllowedTypeByComplianceType(), $expireAt, $component->cookiePath, $component->cookieDomain, $component->cookieSecure, $component->cookieHttpOnly);
+        setcookie(Component::COOKIECONSENT_STATUS, $component->getNotAllowedTypeByComplianceType(), $expireAt, $component->cookiePath, $component->cookieDomain, $component->cookieSecure);
     }
 }
