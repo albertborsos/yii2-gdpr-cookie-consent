@@ -41,5 +41,6 @@ class CookieSettingsDomain extends AbstractDomain
                 setcookie($name, $newValue, $expireAt, $component->cookiePath, $component->cookieDomain, $component->cookieSecure, $component->cookieHttpOnly);
             }
         }
+        setcookie(Component::COOKIECONSENT_STATUS, $component->getNotAllowedTypeByComplianceType(), $expireAt, $component->cookiePath, $component->cookieDomain, $component->cookieSecure, $component->cookieHttpOnly);
     }
 }

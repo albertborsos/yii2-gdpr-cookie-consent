@@ -35,6 +35,7 @@ class Component extends \yii\base\Component implements CategoryInterface, Cookie
     ];
 
     const COOKIE_OPTION_PREFIX = 'cookieconsent_option_';
+    const COOKIECONSENT_STATUS = 'cookieconsent_status';
 
     /**
      * Suggested format in config:
@@ -212,7 +213,7 @@ class Component extends \yii\base\Component implements CategoryInterface, Cookie
      */
     public function setStatus($status = null)
     {
-        $this->_status = $status ?: ArrayHelper::getValue($_COOKIE, 'cookieconsent_status');
+        $this->_status = $status ?: ArrayHelper::getValue($_COOKIE, self::COOKIECONSENT_STATUS);
     }
 
     /**
@@ -377,6 +378,19 @@ class Component extends \yii\base\Component implements CategoryInterface, Cookie
             case self::COMPLIANCE_TYPE_OPT_IN:
                 // while it is not allowed, it is false
                 $this->_defaultCookieValue = $this->isAnswered() ? $this->isAllowed() : false;
+                break;
+        }
+    }
+
+    public function getNotAllowedTypeByComplianceType()
+    {
+        switch ($this->complianceType) {
+            case self::COMPLIANCE_TYPE_INFO:
+            case self::COMPLIANCE_TYPE_OPT_OUT:
+                return self::STATUS_DISMISSED;
+                break;
+            case self::COMPLIANCE_TYPE_OPT_IN:
+                return self::STATUS_DENIED;
                 break;
         }
     }
