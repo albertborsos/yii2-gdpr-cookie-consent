@@ -448,4 +448,30 @@ class Component extends \yii\base\Component implements CategoryInterface, Cookie
         $this->urlSettings = Url::to($this->urlSettings, true);
         $this->urlPrivacyPolicy = Url::to($this->urlPrivacyPolicy, true);
     }
+
+    public function removeCookieConfig($cookieName)
+    {
+        $cookieParts = [
+            $cookieName => '',
+            'Domain' => $this->getComponent()->cookieDomain,
+            'Path' => $this->getComponent()->cookiePath,
+            'Secure' => $this->getComponent()->cookieSecure,
+            'Expires' => 'Thu, 01 Jan 1970 00:00:01 GMT',
+        ];
+
+        $settings = '';
+        foreach ($cookieParts as $attribute => $value) {
+            if ($value === false) {
+                continue;
+            }
+
+            if ($value === true) {
+                $settings .= ' ' . $attribute . ';';
+            } else {
+                $settings .= ' ' . $attribute . '=' . $value . ';';
+            }
+        }
+
+        return "'" . trim($settings) . "'";
+    }
 }
