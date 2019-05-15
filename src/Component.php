@@ -35,6 +35,7 @@ class Component extends \yii\base\Component implements CategoryInterface, Cookie
     ];
 
     const COOKIE_OPTION_PREFIX = 'cookieconsent_option_';
+    const COOKIECONSENT_STATUS = 'cookieconsent_status';
 
     /**
      * Suggested format in config:
@@ -109,6 +110,7 @@ class Component extends \yii\base\Component implements CategoryInterface, Cookie
     /**
      * this value will be passed to `setcookie()` method.
      * @var string
+     * @deprecated since `1.2.4` because if it has a `true` value then CookieConsent library cannot manage the cookies from the frontend it they are set via form submission
      */
     public $cookieHttpOnly = false;
 
@@ -212,7 +214,7 @@ class Component extends \yii\base\Component implements CategoryInterface, Cookie
      */
     public function setStatus($status = null)
     {
-        $this->_status = $status ?: ArrayHelper::getValue($_COOKIE, 'cookieconsent_status');
+        $this->_status = $status ?: ArrayHelper::getValue($_COOKIE, self::COOKIECONSENT_STATUS);
     }
 
     /**
@@ -381,6 +383,19 @@ class Component extends \yii\base\Component implements CategoryInterface, Cookie
         }
     }
 
+    public function getNotAllowedTypeByComplianceType()
+    {
+        switch ($this->complianceType) {
+            case self::COMPLIANCE_TYPE_INFO:
+            case self::COMPLIANCE_TYPE_OPT_OUT:
+                return self::STATUS_DISMISSED;
+                break;
+            case self::COMPLIANCE_TYPE_OPT_IN:
+                return self::STATUS_DENIED;
+                break;
+        }
+    }
+
     /**
      * @return bool
      */
@@ -447,5 +462,31 @@ class Component extends \yii\base\Component implements CategoryInterface, Cookie
 
         $this->urlSettings = Url::to($this->urlSettings, true);
         $this->urlPrivacyPolicy = Url::to($this->urlPrivacyPolicy, true);
+    }
+
+    public function removeCookieConfig($cookieName)
+    {
+        $cookieParts = [
+            $cookieName => '',
+            'Domain' => $this->getComponent()->cookieDomain,
+            'Path' => $this->getComponent()->cookiePath,
+            'Secure' => $this->getComponent()->cookieSecure,
+            'Expires' => 'Thu, 01 Jan 1970 00:00:01 GMT',
+        ];
+
+        $settings = '';
+        foreach ($cookieParts as $attribute => $value) {
+            if ($value === false) {
+                continue;
+            }
+
+            if ($value === true) {
+                $settings .= ' ' . $attribute . ';';
+            } else {
+                $settings .= ' ' . $attribute . '=' . $value . ';';
+            }
+        }
+
+        return "'" . trim($settings) . "'";
     }
 }

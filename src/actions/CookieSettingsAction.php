@@ -59,13 +59,16 @@ class CookieSettingsAction extends Action
         $component = CookieHelper::getComponent();
 
         Yii::$app->view->registerJs("
-            $(document).on('click', '.cc-revoke-custom', function () {
-                var cookieNames = " . \yii\helpers\Json::encode($component->getCategories()) . ";
+            $(document).on('click', '.cc-revoke-custom', function (e) {
+                e.preventDefault();
+                var cookieNames = " . \yii\helpers\Json::encode($component->getCategories()) . ';
                 $.each(cookieNames, function(){
-                    document.cookie = 'cookieconsent_option_' + this + '=; Domain=" . $component->cookieDomain . '; Path=' . $component->cookiePath . '; Secure=' . $component->cookieSecure . "; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                    document.cookie = ' . $component->removeCookieConfig("cookieconsent_option_' + this + '") . ';
                 });
-                document.cookie = 'cookieconsent_status=; Domain=" . $component->cookieDomain . '; Path=' . $component->cookiePath . '; Secure=' . $component->cookieSecure . "; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                document.cookie = ' . $component->removeCookieConfig('cookieconsent_status') . ';
+                // update cookie settings page if cookieconsent status changed on this page
+                window.location.reload();
             });
-        ");
+        ');
     }
 }
