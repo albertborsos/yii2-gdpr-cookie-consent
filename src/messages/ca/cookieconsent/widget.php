@@ -24,5 +24,5 @@ return [
     'form.error.session-is-required' => '¡La categoria de sessió es obligatòria!',
     'form.error.usage_helper-is-required' => 'Es necessita la categoria d\'ajuda de ús per emmagatzemar aquestes configuracions.',
     'link' => 'Enllaç',
-    'message' => 'Ei, sàpigues que en aquest lloc web utilitzem galetes! Si continues utilitzant aquest lloc, assumirem que hi estàs d'acord. Més info a:',
+    'message' => 'Ei, sàpigues que en aquest lloc web utilitzem galetes! Si continues utilitzant aquest lloc, assumirem que hi estàs d\'acord. Més info a:',
 ];
