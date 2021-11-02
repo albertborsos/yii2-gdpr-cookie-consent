@@ -229,6 +229,18 @@ class Component extends \yii\base\Component implements CategoryInterface, Cookie
     }
 
     /**
+     * @return string
+     */
+    public function getSettingsHash()
+    {
+        foreach (CookieHelper::MAPPING as $category => $_types) {
+            $options[$category] = $this->isAllowedCategory($category);
+        }
+
+        return implode('-', $options);
+    }
+
+    /**
      * @throws InvalidConfigException
      */
     private function checkDocuments()
