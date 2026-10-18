@@ -245,12 +245,7 @@ class CookieWidget extends Widget
             $.each(cookieNames, function(){
                 document.cookie = ' . $this->getComponent()->removeCookieConfig("cookieconsent_option_' + this + '") . ";
             });
-            var currentUrl = window.location.href;
-            var policyUrl = '" . Url::to($this->policyLink, true) . "';
-            if (currentUrl==policyUrl) {
-                // update cookie settings page if cookieconsent status changed on this page
-                window.location.reload();
-            }
+            window.location.reload();
         }");
     }
 

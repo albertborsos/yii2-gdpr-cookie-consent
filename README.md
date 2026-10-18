@@ -110,3 +110,9 @@ if(CookieHelper::isAllowedCategory(CookieHelper::CATEGORY_BEHAVIOR)){
 }
 
 ```
+
+### Consent changes
+
+The default `onStatusChange` and `onRevokeChoice` callbacks clear category overrides and reload the current page. This lets server-side checks such as `CookieHelper::isAllowedType()` apply the new consent immediately, including on landing pages.
+
+Reloading can discard unsaved form values. Applications that manage their integrations without a reload can supply their own callbacks through `pluginOptions`. Custom callbacks remain responsible for clearing category overrides and applying consent changes.

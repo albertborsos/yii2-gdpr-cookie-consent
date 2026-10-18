@@ -86,6 +86,34 @@ class CookieWidgetTest extends \Codeception\Test\Unit
         }
     }
 
+    public function testConsentChangesReloadEveryPage()
+    {
+        $widget = $this->mockWidget();
+
+        foreach (['onStatusChange', 'onRevokeChoice'] as $callback) {
+            $script = (string) $widget->pluginOptions[$callback];
+            $this->assertContains('cookieconsent_option_', $script);
+            $this->assertContains('window.location.reload();', $script);
+            $this->assertNotContains('currentUrl', $script);
+            $this->assertNotContains('policyUrl', $script);
+            $this->assertLessThan(strpos($script, 'window.location.reload();'), strpos($script, 'document.cookie'));
+        }
+    }
+
+    public function testCustomConsentCallbacksArePreserved()
+    {
+        $callback = new \yii\web\JsExpression('function(){window.customConsentHandler();}');
+        $widget = $this->mockWidget([
+            'pluginOptions' => [
+                'onStatusChange' => $callback,
+                'onRevokeChoice' => $callback,
+            ],
+        ]);
+
+        $this->assertSame($callback, $widget->pluginOptions['onStatusChange']);
+        $this->assertSame($callback, $widget->pluginOptions['onRevokeChoice']);
+    }
+
     private function mockWidget(array $config = [])
     {
         return Yii::createObject(CookieWidget::class, [$config]);
